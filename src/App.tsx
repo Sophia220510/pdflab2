@@ -1,0 +1,531 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+import { checkoutDestination, site, type CtaPosition } from "./config";
+
+type Preview = { src: string; title: string; caption: string; page: number };
+
+const previews: Preview[] = [
+  {
+    src: "/images/vcm.webp",
+    title: "VCM: o tamanho médio",
+    caption: "Entenda o que o VCM mostra — e o que uma média pode esconder.",
+    page: 11,
+  },
+  {
+    src: "/images/percentual-absoluto.webp",
+    title: "Percentual pode enganar",
+    caption:
+      "Veja por que uma porcentagem maior nem sempre significa mais células.",
+    page: 28,
+  },
+  {
+    src: "/images/sintese.webp",
+    title: "Do dado à síntese",
+    caption:
+      "Acompanhe um exemplo fictício que conecta as três séries em uma síntese.",
+    page: 41,
+  },
+];
+
+const faqs = [
+  [
+    "Para quem é o material?",
+    "Para estudantes de Biomedicina, Farmácia e cursos técnicos em Análises Clínicas, além de quem já tem base nessas áreas e quer revisar os fundamentos do hemograma de adultos.",
+  ],
+  [
+    "Preciso estar começando um estágio?",
+    "Não. Você pode usar o e-book para estudar ou revisar o tema no seu próprio ritmo.",
+  ],
+  [
+    "É um curso em vídeo ou um PDF?",
+    "É um e-book em PDF, em português. Não inclui aulas em vídeo ou acompanhamento individual.",
+  ],
+  [
+    "O que está incluído nos R$37?",
+    "Somente o Hemograma Descomplicado: explicações, diagramas, exemplos resolvidos, 12 desafios comentados, ficha de leitura, glossário e índice clicável.",
+  ],
+  [
+    "Como recebo e acesso?",
+    "O modo de pagamento e a entrega digital serão informados no checkout assim que ele estiver configurado para este produto.",
+  ],
+  [
+    "Existem materiais complementares?",
+    "Sim. Hemograma em Casos e Hemograma de Bolso são PDFs opcionais, vendidos à parte por R$9,90 cada no checkout. O e-book principal pode ser estudado sozinho.",
+  ],
+];
+
+function track(
+  name: "offer_view" | "cta_click" | "preview_open",
+  detail: Record<string, string | number> = {},
+) {
+  window.dispatchEvent(
+    new CustomEvent("hemograma:analytics", {
+      detail: { event: name, ...detail },
+    }),
+  );
+}
+
+function BuyButton({
+  position,
+  compact = false,
+}: {
+  position: CtaPosition;
+  compact?: boolean;
+}) {
+  const href = checkoutDestination(window.location.search);
+  const label = compact ? "Comprar agora" : "Quero o Hemograma Descomplicado";
+  if (!href) {
+    return (
+      <button
+        className={`buy-button main-cta ${compact ? "compact" : ""}`}
+        type="button"
+        disabled
+        aria-describedby="checkout-pending"
+      >
+        {label}
+      </button>
+    );
+  }
+  return (
+    <a
+      className={`buy-button main-cta ${compact ? "compact" : ""}`}
+      href={href}
+      onClick={() => track("cta_click", { position })}
+    >
+      {label}
+      <span aria-hidden="true"> ↗</span>
+    </a>
+  );
+}
+
+function PreviewModal({
+  preview,
+  onClose,
+}: {
+  preview: Preview;
+  onClose: () => void;
+}) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialogRef.current?.querySelector("button")?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+      if (event.key !== "Tab") return;
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'button, a[href], [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0],
+        last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+  return (
+    <div
+      className="modal-backdrop"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <div
+        className="preview-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${preview.title}, página ${preview.page}`}
+        ref={dialogRef}
+        tabIndex={-1}
+      >
+        <div className="modal-toolbar">
+          <span>Página {preview.page} de 53 · amostra real do PDF</span>
+          <button type="button" onClick={onClose} aria-label="Fechar prévia">
+            Fechar <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <img
+          src={preview.src}
+          alt={`Página ${preview.page} do e-book: ${preview.title}`}
+          width="1044"
+          height="1500"
+        />
+      </div>
+    </div>
+  );
+}
+
+export function App() {
+  const [activePreview, setActivePreview] = useState<Preview | null>(null);
+  const [stickyVisible, setStickyVisible] = useState(false);
+  const opener = useRef<HTMLButtonElement | null>(null);
+  const closePreview = useCallback(() => {
+    setActivePreview(null);
+    requestAnimationFrame(() => opener.current?.focus());
+  }, []);
+
+  useEffect(() => {
+    track("offer_view");
+    const visible = new Set<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries)
+          entry.isIntersecting
+            ? visible.add(entry.target)
+            : visible.delete(entry.target);
+        const hero = document.querySelector(".hero .main-cta");
+        const footer = document.querySelector("footer");
+        setStickyVisible(
+          Boolean(
+            hero &&
+            !visible.has(hero) &&
+            window.scrollY > 300 &&
+            !Array.from(visible).some(
+              (el) => el.classList.contains("main-cta") || el === footer,
+            ),
+          ),
+        );
+      },
+      { threshold: 0.05 },
+    );
+    document
+      .querySelectorAll(".main-cta, footer")
+      .forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const openPreview = (preview: Preview, button: HTMLButtonElement) => {
+    opener.current = button;
+    track("preview_open", { page: preview.page, topic: preview.title });
+    setActivePreview(preview);
+  };
+
+  return (
+    <>
+      <header className="site-header shell">
+        {site.brandLogo ? (
+          <img
+            className="brand-logo"
+            src={site.brandLogo}
+            alt={site.brandName || "Logo do laboratório"}
+            width="164"
+            height="48"
+          />
+        ) : (
+          <span className="product-mark">
+            <span className="mark-dot" /> Hematologia essencial
+          </span>
+        )}
+        <span className="header-label">
+          Material de estudo em Análises Clínicas
+        </span>
+      </header>
+
+      <main>
+        <section className="hero shell" aria-labelledby="hero-title">
+          <div className="hero-copy">
+            <p className="eyebrow">Hemograma Descomplicado · e-book PDF</p>
+            <h1 id="hero-title">
+              Entenda os números do hemograma e aprenda a conectar os achados.
+            </h1>
+            <p className="hero-subtitle">
+              Um e-book visual para organizar a leitura do hemograma de adultos,
+              entender as principais medidas e praticar com exemplos resolvidos.
+            </p>
+            <ul className="hero-benefits">
+              <li>Entenda Hb, VCM, RDW e outras medidas.</li>
+              <li>Conecte hemácias, leucócitos e plaquetas.</li>
+              <li>Pratique com exemplos e respostas comentadas.</li>
+            </ul>
+            <div className="hero-purchase">
+              <p className="price">
+                <strong>{site.price}</strong> <span>pagamento único</span>
+              </p>
+              <BuyButton position="hero" />
+              <p className="microcopy">E-book PDF em português · 53 páginas</p>
+              {!site.checkoutUrl && (
+                <p className="checkout-note" id="checkout-pending">
+                  Compra indisponível até a configuração do checkout.
+                </p>
+              )}
+              <div className="hero-authority">
+                <img
+                  src="/images/paulo-brandao.webp"
+                  alt="Paulo Brandão, em foto identificada fornecida para a página"
+                  width="52"
+                  height="52"
+                />
+                <span>
+                  <strong>Paulo Brandão</strong>
+                  <small>Experiência em Análises Clínicas</small>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="hero-visual"
+            aria-label="Capa real do e-book Hemograma Descomplicado"
+          >
+            <div className="book-backdrop" />
+            <img
+              src="/images/capa.webp"
+              alt="Capa do PDF Hemograma Descomplicado"
+              width="1044"
+              height="1500"
+              fetchPriority="high"
+            />
+            <div className="visual-caption">
+              <span className="caption-bar" />
+              Amostra do material real
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="difficulty section-pad"
+          aria-labelledby="difficulty-title"
+        >
+          <div className="shell narrow">
+            <p className="section-kicker">Do número à leitura</p>
+            <h2 id="difficulty-title">
+              Você conhece as siglas, mas trava quando precisa juntar tudo?
+            </h2>
+            <div className="difficulty-grid">
+              <div>
+                <span>01</span>
+                <p>
+                  Sabe o que são VCM e RDW, mas não entende o que acrescentam
+                  juntos.
+                </p>
+              </div>
+              <div>
+                <span>02</span>
+                <p>
+                  Olha a porcentagem dos leucócitos e se confunde com a contagem
+                  absoluta.
+                </p>
+              </div>
+              <div>
+                <span>03</span>
+                <p>
+                  Encontra uma alteração, mas não consegue organizar uma síntese
+                  do exame.
+                </p>
+              </div>
+            </div>
+            <p className="section-summary">
+              O material organiza conceitos, contas, exemplos e prática em uma
+              sequência de estudo que ajuda você a conectar as três séries.
+            </p>
+          </div>
+        </section>
+
+        <section
+          className="previews section-pad shell"
+          aria-labelledby="previews-title"
+        >
+          <div className="section-heading">
+            <div>
+              <p className="section-kicker">Por dentro do PDF</p>
+              <h2 id="previews-title">Veja como o material explica</h2>
+            </div>
+            <p>
+              Estas são páginas reais do e-book. Abra para ler o conteúdo em
+              tamanho maior.
+            </p>
+          </div>
+          <div className="preview-grid">
+            {previews.map((preview) => (
+              <article className="preview-card" key={preview.page}>
+                <div className="preview-image">
+                  <img
+                    src={preview.src}
+                    alt={`Amostra da página ${preview.page}: ${preview.title}`}
+                    width="1044"
+                    height="1500"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="preview-content">
+                  <span className="page-number">
+                    PÁGINA {String(preview.page).padStart(2, "0")}
+                  </span>
+                  <h3>{preview.title}</h3>
+                  <p>{preview.caption}</p>
+                  <button
+                    type="button"
+                    onClick={(event) =>
+                      openPreview(preview, event.currentTarget)
+                    }
+                  >
+                    Ampliar página <span aria-hidden="true">↗</span>
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="process-strip shell"
+          aria-label="Sequência de estudo"
+        >
+          <span>
+            01 <strong>Entenda a medida</strong>
+          </span>
+          <span>
+            02 <strong>Conecte os achados</strong>
+          </span>
+          <span>
+            03 <strong>Pratique a síntese</strong>
+          </span>
+        </section>
+
+        <section className="proof section-pad" aria-labelledby="proof-title">
+          <div className="shell proof-layout">
+            <div>
+              <p className="section-kicker">Estudo com método</p>
+              <h2 id="proof-title">
+                Da sigla isolada a uma leitura organizada.
+              </h2>
+              <p>
+                O e-book passa pelas medidas da série vermelha, pelo total e
+                diferencial de leucócitos e pela leitura das plaquetas. Depois
+                reúne as informações em exemplos fictícios resolvidos.
+              </p>
+              <p>
+                Ao longo do PDF, você encontra limites de interpretação,
+                referências e espaço para conferir o próprio raciocínio.
+              </p>
+              <BuyButton position="after_proof" />
+            </div>
+            <div className="proof-person">
+              <img
+                src="/images/paulo-brandao.webp"
+                alt="Retrato de Paulo Brandão"
+                width="735"
+                height="724"
+                loading="lazy"
+              />
+              <div>
+                <strong>Paulo Brandão</strong>
+                <span>Experiência em Análises Clínicas.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="offer section-pad shell"
+          aria-labelledby="offer-title"
+        >
+          <div className="offer-card">
+            <div className="offer-cover">
+              <img
+                src="/images/capa.webp"
+                alt="Capa real do e-book Hemograma Descomplicado"
+                width="1044"
+                height="1500"
+                loading="lazy"
+              />
+            </div>
+            <div className="offer-content">
+              <p className="section-kicker">O que você recebe</p>
+              <h2 id="offer-title">Hemograma Descomplicado</h2>
+              <p className="offer-intro">
+                Um PDF completo para estudar e revisar os fundamentos do
+                hemograma de adultos.
+              </p>
+              <ul className="offer-list">
+                <li>Explicações e diagramas para compreender cada medida.</li>
+                <li>Exemplos resolvidos para acompanhar o raciocínio.</li>
+                <li>12 desafios comentados para praticar e conferir.</li>
+                <li>Ficha de leitura e glossário para retomar dúvidas.</li>
+                <li>Índice clicável para localizar um tema.</li>
+              </ul>
+              <p className="offer-price">
+                <strong>{site.price}</strong>
+                <span>pagamento único</span>
+              </p>
+              <BuyButton position="offer" />
+              <p className="microcopy">
+                Somente o e-book principal. Materiais adicionais são opcionais e
+                pagos à parte.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="faq section-pad" aria-labelledby="faq-title">
+          <div className="shell narrow">
+            <p className="section-kicker">Dúvidas frequentes</p>
+            <h2 id="faq-title">Antes de começar</h2>
+            <div className="faq-list">
+              {faqs.map(([question, answer]) => (
+                <details key={question}>
+                  <summary>
+                    {question}
+                    <span aria-hidden="true">+</span>
+                  </summary>
+                  <p>{answer}</p>
+                </details>
+              ))}
+            </div>
+            <p className="education-note">
+              Material educacional para estudo. A avaliação de um exame real
+              depende do contexto e de profissional habilitado.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="shell footer-inner">
+          <div>
+            <strong>Hemograma Descomplicado</strong>
+            <p>E-book de estudo em Análises Clínicas.</p>
+          </div>
+          <div>
+            {site.sellerName && <p>Responsável comercial: {site.sellerName}</p>}
+            {site.supportEmail && (
+              <p>
+                Suporte:{" "}
+                <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>
+              </p>
+            )}
+            {!site.sellerName && !site.supportEmail && (
+              <p>
+                Identificação comercial e contato de suporte pendentes de
+                confirmação.
+              </p>
+            )}
+          </div>
+        </div>
+      </footer>
+
+      {stickyVisible && !activePreview && (
+        <div className="sticky-purchase">
+          <div className="shell sticky-inner">
+            <span>
+              <strong>R$37</strong>
+              <small>pagamento único</small>
+            </span>
+            <BuyButton position="sticky" compact />
+          </div>
+        </div>
+      )}
+      {activePreview && (
+        <PreviewModal preview={activePreview} onClose={closePreview} />
+      )}
+    </>
+  );
+}

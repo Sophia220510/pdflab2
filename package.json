@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "build:review": "tsc -b && vite build --mode review",
     "preview": "vite preview --host 0.0.0.0",
-    "test:smoke": "node scripts/smoke.mjs"
+    "test:smoke": "node scripts/smoke.mjs",
+    "test:pixel": "node scripts/pixel-smoke.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",

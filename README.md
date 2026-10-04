@@ -61,7 +61,7 @@ Deixe ambos **desmarcados por padrão** no checkout. O produto principal custa R
 
 ## Medição e verificação
 
-O código emite eventos locais `hemograma:analytics` para `offer_view`, `cta_click` (com posição) e `preview_open` (com página e tema). Não há Pixel, serviço de analytics externo nem evento de compra. Uma integração real pode escutar esses eventos após aprovação dos identificadores e da plataforma. A confirmação de compra pertence ao checkout.
+O Meta Pixel `2202477087281618` envia `PageView` ao carregar a página, `ViewContent` ao apresentar a oferta e `InitiateCheckout` quando alguém clica em um CTA com checkout válido. O código continua emitindo eventos locais `hemograma:analytics` para `offer_view`, `cta_click` (com posição) e `preview_open` (com página e tema). Não há evento `Purchase` na landing page: a confirmação de compra pertence ao checkout. Os parâmetros configurados para `ViewContent` e `InitiateCheckout` contêm apenas o identificador do produto, preço e moeda.
 
 Para testar com uma URL temporária de sua autoria, defina `VITE_CHECKOUT_URL` no processo de desenvolvimento e execute `npm run test:smoke` com o servidor em `http://localhost:4174/`. Esse teste verifica largura, imagens, primeira tela de 390 px, modal, foco, FAQ, barra fixa e UTMs em sete larguras. A URL de exemplo usada durante o desenvolvimento não está no código nem na configuração de produção.
 

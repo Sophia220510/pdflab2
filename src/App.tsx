@@ -58,6 +58,24 @@ function track(
   name: "offer_view" | "cta_click" | "preview_open",
   detail: Record<string, string | number> = {},
 ) {
+  const fbq = (window as Window & {
+    fbq?: (...args: unknown[]) => void;
+  }).fbq;
+  if (name === "offer_view") {
+    fbq?.("track", "ViewContent", {
+      content_ids: ["hemograma-descomplicado"],
+      content_type: "product",
+      value: 37,
+      currency: "BRL",
+    });
+  } else if (name === "cta_click") {
+    fbq?.("track", "InitiateCheckout", {
+      content_ids: ["hemograma-descomplicado"],
+      content_type: "product",
+      value: 37,
+      currency: "BRL",
+    });
+  }
   window.dispatchEvent(
     new CustomEvent("hemograma:analytics", {
       detail: { event: name, ...detail },

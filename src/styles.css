@@ -99,23 +99,32 @@ ul {
   gap: 24px;
   border-bottom: 1px solid #e6e6e1;
 }
-.product-mark {
-  font-weight: 800;
-  letter-spacing: 0.02em;
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.brand-lockup span {
+  display: grid;
+  gap: 3px;
+}
+.brand-lockup strong {
+  font-size: 0.88rem;
   white-space: nowrap;
 }
-.mark-dot {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #d65161;
-  display: inline-block;
-  margin-right: 8px;
-  box-shadow: 5px 0 0 #f0b3bb;
+.brand-lockup small {
+  color: #53636a;
+  font-size: 0.69rem;
 }
 .brand-logo {
+  width: 44px;
+  height: 44px;
+  flex: none;
   object-fit: contain;
-  object-position: left center;
+  padding: 7px;
+  background: #fff;
+  border-radius: 6px;
 }
 .header-label {
   font-size: 0.8rem;
@@ -735,12 +744,8 @@ ul {
   .site-header {
     align-items: center;
   }
-  .product-mark {
-    font-size: 0.79rem;
-  }
   .header-label {
-    font-size: 0.67rem;
-    max-width: 126px;
+    display: none;
   }
   .hero {
     padding-top: 29px;
@@ -868,30 +873,37 @@ ul {
   font-size: 0.74rem;
   color: #697982;
 }
-.proof-person {
-  max-width: 390px;
+.proof-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
   justify-self: end;
 }
-.proof-person img {
+.proof-photos figure {
+  margin: 0;
+  min-width: 0;
+}
+.proof-photos img {
   width: 100%;
-  max-height: 350px;
+  height: 190px;
   object-fit: cover;
-  object-position: center 25%;
+  object-position: center;
   border-radius: 10px 10px 0 0;
 }
-.proof-person > div {
+.proof-photos figcaption {
   background: #fff;
   color: #172b38;
   border-radius: 0 0 10px 10px;
-  padding: 15px 20px;
+  padding: 12px;
   display: grid;
   gap: 4px;
+  min-height: 86px;
 }
-.proof-person strong {
-  font-size: 1rem;
+.proof-photos strong {
+  font-size: 0.82rem;
 }
-.proof-person span {
-  font-size: 0.78rem;
+.proof-photos span {
+  font-size: 0.73rem;
   color: #576972;
   line-height: 1.4;
 }
@@ -899,12 +911,12 @@ ul {
   .hero-authority {
     margin-top: 17px;
   }
-  .proof-person {
-    max-width: 300px;
-    margin: 35px auto 0;
+  .proof-photos {
+    margin-top: 35px;
+    justify-self: auto;
   }
-  .proof-person img {
-    max-height: 280px;
+  .proof-photos img {
+    height: 160px;
   }
 }
 .microcopy,

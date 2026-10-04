@@ -19,11 +19,6 @@ export default defineConfig(({ command, mode }) => {
         "Defina VITE_CHECKOUT_URL com a URL HTTPS real do Hemograma Descomplicado antes do build de produção. Use build:review para uma prévia sem compras.",
       );
     }
-    if (!env.VITE_BRAND_LOGO || !env.VITE_BRAND_NAME) {
-      throw new Error(
-        "Confirme a instituição e configure VITE_BRAND_NAME e VITE_BRAND_LOGO com a marca oficial antes do build de produção.",
-      );
-    }
   }
   return { plugins: [react()] };
 });

@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Abra `http://localhost:5173/`. Para gerar uma versão de revisão sem checkout, use `npm run build:review`. O comando `npm run build` exige `VITE_CHECKOUT_URL`, `VITE_BRAND_NAME` e `VITE_BRAND_LOGO` reais e falha quando algum deles não existe.
+Abra `http://localhost:5173/`. Para gerar uma versão de revisão sem checkout, use `npm run build:review`. O comando `npm run build` exige `VITE_CHECKOUT_URL` real e falha quando ela não existe.
 
 Copie `.env.example` para `.env.local` e preencha somente dados confirmados. O checkout deve ser HTTPS. Todos os CTAs usam a mesma URL e recebem apenas os parâmetros `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` e `utm_term`, limitados a 120 caracteres alfanuméricos ou de pontuação simples. Ajuste a lista em `src/config.ts` após confirmar os parâmetros aceitos pela plataforma. Nunca inclua dados pessoais ou tokens em UTMs.
 
@@ -32,15 +32,16 @@ Os PDFs originais permanecem fora do repositório e do diretório público.
 | `public/images/percentual-absoluto.webp` | Página 28 do PDF principal; prévia sobre percentual e absoluto. |
 | `public/images/sintese.webp` | Página 41 do PDF principal; prévia do exemplo integrado. |
 | `public/images/paulo-brandao.webp` | Recorte da imagem identificada `Dr. Paulo Brandão_ referência clínica.png`; sinal compacto de autoridade e retrato. Sem alteração de rosto. |
+| `public/images/santa-helena-logo.svg` | Símbolo SVG extraído do cabeçalho do [site do Laboratório Santa Helena](https://laboratoriosantahelena.vercel.app/), também presente no projeto `pdflab`. Exibido com nome e proporções preservados. |
+| `public/images/santa-helena-recepcao.webp` | Foto da recepção já usada no projeto `pdflab` e apresentada na primeira tela do [site do laboratório](https://laboratoriosantahelena.vercel.app/); bloco de autoridade. |
 
-O ZIP `fotos_laboratorio_santa_helena.zip` foi examinado, mas as fotos com painel de marca exibem **Laboratório Brandão**. Não foram atribuídas ao Laboratório Santa Helena na página. Os materiais `Santa_Helena_Instagram_20_Artes.zip` foram encontrados na pasta de downloads e contêm um símbolo “SH”, mas não constituem identificação suficiente da logo oficial de uma instituição específica. Por isso, a página usa por ora a marca editorial do próprio e-book. `VITE_BRAND_LOGO` permite inserir a marca oficial local assim que a instituição for confirmada.
+O ZIP `fotos_laboratorio_santa_helena.zip` foi examinado, mas as fotos com painel de marca exibem **Laboratório Brandão**. Não foram atribuídas ao Laboratório Santa Helena na página. A marca e a recepção foram identificadas no site do Santa Helena vinculado ao projeto anterior `pdflab`.
 
-## Pendências comerciais e de identidade
+## Pendências comerciais
 
-1. Confirmar **qual Laboratório Santa Helena** participa da iniciativa e fornecer a logo oficial ou o site exato. Há instituições homônimas e as fotos do ZIP mostram outra marca.
-2. Fornecer a URL do checkout exclusivo do e-book principal, confirmar entrega, meios de pagamento e quais UTMs são aceitas.
-3. Confirmar responsável comercial, contato de suporte e links reais de política/garantia, quando disponíveis.
-4. Confirmar qualquer vínculo institucional, credencial adicional e participação técnica de Paulo Brandão antes de inserir afirmações além das imagens fornecidas.
+1. Fornecer a URL do checkout exclusivo do e-book principal, confirmar entrega, meios de pagamento e quais UTMs são aceitas.
+2. Confirmar responsável comercial, contato de suporte e links reais de política/garantia, quando disponíveis.
+3. Confirmar qualquer credencial adicional e participação técnica de Paulo Brandão antes de inserir afirmações além das imagens fornecidas.
 
 Nenhum dos complementos está configurado em plataforma de pagamento. Eles aparecem uma vez no FAQ como opcionais e pagos à parte.
 

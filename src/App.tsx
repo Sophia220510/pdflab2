@@ -212,19 +212,19 @@ export function App() {
   return (
     <>
       <header className="site-header shell">
-        {site.brandLogo ? (
+        <div className="brand-lockup">
           <img
             className="brand-logo"
             src={site.brandLogo}
-            alt={site.brandName || "Logo do laboratório"}
-            width="164"
-            height="48"
+            alt={`Símbolo do ${site.brandName}`}
+            width="44"
+            height="44"
           />
-        ) : (
-          <span className="product-mark">
-            <span className="mark-dot" /> Hematologia essencial
+          <span>
+            <strong>{site.brandName}</strong>
+            <small>Análises Clínicas</small>
           </span>
-        )}
+        </div>
         <span className="header-label">
           Material de estudo em Análises Clínicas
         </span>
@@ -408,18 +408,33 @@ export function App() {
               </p>
               <BuyButton position="after_proof" />
             </div>
-            <div className="proof-person">
-              <img
-                src="/images/paulo-brandao.webp"
-                alt="Retrato de Paulo Brandão"
-                width="735"
-                height="724"
-                loading="lazy"
-              />
-              <div>
-                <strong>Paulo Brandão</strong>
-                <span>Experiência em Análises Clínicas.</span>
-              </div>
+            <div className="proof-photos">
+              <figure>
+                <img
+                  src="/images/paulo-brandao.webp"
+                  alt="Retrato de Paulo Brandão"
+                  width="735"
+                  height="724"
+                  loading="lazy"
+                />
+                <figcaption>
+                  <strong>Paulo Brandão</strong>
+                  <span>Experiência em Análises Clínicas.</span>
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="/images/santa-helena-recepcao.webp"
+                  alt="Recepção real do Laboratório Santa Helena"
+                  width="1080"
+                  height="720"
+                  loading="lazy"
+                />
+                <figcaption>
+                  <strong>Laboratório Santa Helena</strong>
+                  <span>Recepção apresentada no site oficial.</span>
+                </figcaption>
+              </figure>
             </div>
           </div>
         </section>

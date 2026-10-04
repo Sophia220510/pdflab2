@@ -4,8 +4,10 @@ export const site = {
   checkoutUrl: import.meta.env.VITE_CHECKOUT_URL?.trim() || "",
   supportEmail: import.meta.env.VITE_SUPPORT_EMAIL?.trim() || "",
   sellerName: import.meta.env.VITE_SELLER_NAME?.trim() || "",
-  brandLogo: import.meta.env.VITE_BRAND_LOGO?.trim() || "",
-  brandName: import.meta.env.VITE_BRAND_NAME?.trim() || "",
+  brandLogo:
+    import.meta.env.VITE_BRAND_LOGO?.trim() || "/images/santa-helena-logo.svg",
+  brandName:
+    import.meta.env.VITE_BRAND_NAME?.trim() || "Laboratório Santa Helena",
   // Ajuste apenas aos parâmetros aceitos pelo checkout contratado.
   allowedTrackingParams: [
     "utm_source",

@@ -15,8 +15,8 @@ export default defineConfig(({ command, mode }) => {
       checkout.protocol !== "https:" ||
       ["example.com", "localhost"].includes(checkout.hostname)
     ) {
-      throw new Error(
-        "Defina VITE_CHECKOUT_URL com a URL HTTPS real do Hemograma Descomplicado antes do build de produção. Use build:review para uma prévia sem compras.",
+      console.warn(
+        "VITE_CHECKOUT_URL não configurada com um checkout HTTPS real. A página será publicada com os botões de compra desativados.",
       );
     }
   }

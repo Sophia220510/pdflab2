@@ -252,7 +252,7 @@ export function App() {
               </p>
               <BuyButton position="hero" />
               <p className="microcopy">E-book PDF em português · 53 páginas</p>
-              {!site.checkoutUrl && (
+              {!checkoutDestination(window.location.search) && (
                 <p className="checkout-note" id="checkout-pending">
                   Compra indisponível até a configuração do checkout.
                 </p>

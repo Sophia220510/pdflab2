@@ -9,9 +9,15 @@ npm install
 npm run dev
 ```
 
-Abra `http://localhost:5173/`. Para gerar uma versão de revisão sem checkout, use `npm run build:review`. O comando `npm run build` exige `VITE_CHECKOUT_URL` real e falha quando ela não existe.
+Abra `http://localhost:5173/`. `npm run build` gera a versão usada pela Vercel. Sem `VITE_CHECKOUT_URL` válida, a página é publicada com os botões de compra desativados e uma mensagem clara; nenhuma compra é simulada. `npm run build:review` gera a mesma prévia sem checkout.
 
 Copie `.env.example` para `.env.local` e preencha somente dados confirmados. O checkout deve ser HTTPS. Todos os CTAs usam a mesma URL e recebem apenas os parâmetros `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` e `utm_term`, limitados a 120 caracteres alfanuméricos ou de pontuação simples. Ajuste a lista em `src/config.ts` após confirmar os parâmetros aceitos pela plataforma. Nunca inclua dados pessoais ou tokens em UTMs.
+
+## Publicar na Vercel
+
+Importe o repositório `Sophia220510/pdflab2` com o preset **Vite**. A Vercel pode usar o comando padrão `npm run build` e o diretório de saída `dist`. O build funciona sem variáveis de ambiente; nesse estado, o site é uma apresentação do material, sem compra ativa.
+
+Quando o checkout exclusivo do **Hemograma Descomplicado** estiver pronto, configure `VITE_CHECKOUT_URL` com a URL HTTPS em **Project Settings → Environment Variables** para Production e faça um novo deploy. Confira o destino dos CTAs depois da publicação. Não use o checkout do Guia do Primeiro Estágio.
 
 ## Conteúdo conferido nos PDFs
 

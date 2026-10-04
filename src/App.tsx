@@ -7,21 +7,22 @@ const previews: Preview[] = [
   {
     src: "/images/vcm.webp",
     title: "VCM: o tamanho médio",
-    caption: "Entenda o que o VCM mostra — e o que uma média pode esconder.",
+    caption:
+      "Enxergue o que o VCM mostra — e por que uma média pode esconder diferenças importantes.",
     page: 11,
   },
   {
     src: "/images/percentual-absoluto.webp",
     title: "Percentual pode enganar",
     caption:
-      "Veja por que uma porcentagem maior nem sempre significa mais células.",
+      "Uma conta simples revela a armadilha: percentual maior não significa contagem maior.",
     page: 28,
   },
   {
     src: "/images/sintese.webp",
     title: "Do dado à síntese",
     caption:
-      "Acompanhe um exemplo fictício que conecta as três séries em uma síntese.",
+      "Veja os dados de um caso fictício se encaixarem em uma síntese, passo a passo.",
     page: 41,
   },
 ];
@@ -72,7 +73,7 @@ function BuyButton({
   compact?: boolean;
 }) {
   const href = checkoutDestination(window.location.search);
-  const label = compact ? "Comprar agora" : "Quero o Hemograma Descomplicado";
+  const label = compact ? "Quero destravar" : "Quero destravar o hemograma";
   if (!href) {
     return (
       <button
@@ -235,16 +236,17 @@ export function App() {
           <div className="hero-copy">
             <p className="eyebrow">Hemograma Descomplicado · e-book PDF</p>
             <h1 id="hero-title">
-              Entenda os números do hemograma e aprenda a conectar os achados.
+              Pare de decorar siglas. Enxergue a lógica do hemograma.
             </h1>
             <p className="hero-subtitle">
-              Um e-book visual para organizar a leitura do hemograma de adultos,
-              entender as principais medidas e praticar com exemplos resolvidos.
+              Uma leitura visual e prática para conectar Hb, VCM, RDW,
+              leucócitos e plaquetas — e construir uma síntese do hemograma de
+              adultos.
             </p>
             <ul className="hero-benefits">
-              <li>Entenda Hb, VCM, RDW e outras medidas.</li>
-              <li>Conecte hemácias, leucócitos e plaquetas.</li>
-              <li>Pratique com exemplos e respostas comentadas.</li>
+              <li>Entenda o papel de Hb, VCM e RDW.</li>
+              <li>Conecte as três séries do exame.</li>
+              <li>Treine com 12 desafios comentados.</li>
             </ul>
             <div className="hero-purchase">
               <p className="price">
@@ -297,34 +299,35 @@ export function App() {
           <div className="shell narrow">
             <p className="section-kicker">Do número à leitura</p>
             <h2 id="difficulty-title">
-              Você conhece as siglas, mas trava quando precisa juntar tudo?
+              Você reconhece as siglas. Mas, na hora de juntar tudo, trava?
             </h2>
             <div className="difficulty-grid">
               <div>
                 <span>01</span>
                 <p>
-                  Sabe o que são VCM e RDW, mas não entende o que acrescentam
-                  juntos.
+                  VCM e RDW estão ali. O que essa combinação acrescenta à
+                  leitura das hemácias?
                 </p>
               </div>
               <div>
                 <span>02</span>
                 <p>
-                  Olha a porcentagem dos leucócitos e se confunde com a contagem
-                  absoluta.
+                  Os linfócitos aparecem em 60%. Isso é aumento real ou só
+                  proporção?
                 </p>
               </div>
               <div>
                 <span>03</span>
                 <p>
-                  Encontra uma alteração, mas não consegue organizar uma síntese
-                  do exame.
+                  Surge uma alteração. Como escrever uma síntese sem adivinhar a
+                  causa?
                 </p>
               </div>
             </div>
             <p className="section-summary">
-              O material organiza conceitos, contas, exemplos e prática em uma
-              sequência de estudo que ajuda você a conectar as três séries.
+              O e-book transforma essas dúvidas em uma sequência concreta:
+              entender a medida, fazer a conta, conectar as três séries e
+              praticar a síntese.
             </p>
           </div>
         </section>
@@ -336,11 +339,11 @@ export function App() {
           <div className="section-heading">
             <div>
               <p className="section-kicker">Por dentro do PDF</p>
-              <h2 id="previews-title">Veja como o material explica</h2>
+              <h2 id="previews-title">Veja as peças se encaixarem</h2>
             </div>
             <p>
-              Estas são páginas reais do e-book. Abra para ler o conteúdo em
-              tamanho maior.
+              Amplie três páginas reais e veja diagramas, contas e uma síntese
+              preenchida.
             </p>
           </div>
           <div className="preview-grid">
@@ -395,16 +398,16 @@ export function App() {
             <div>
               <p className="section-kicker">Estudo com método</p>
               <h2 id="proof-title">
-                Da sigla isolada a uma leitura organizada.
+                Um caminho claro para conectar as peças do exame.
               </h2>
               <p>
-                O e-book passa pelas medidas da série vermelha, pelo total e
-                diferencial de leucócitos e pela leitura das plaquetas. Depois
-                reúne as informações em exemplos fictícios resolvidos.
+                Primeiro, cada medida responde a uma pergunta concreta. Depois,
+                você confere as contas, percorre as três séries e acompanha
+                exemplos fictícios até a síntese.
               </p>
               <p>
-                Ao longo do PDF, você encontra limites de interpretação,
-                referências e espaço para conferir o próprio raciocínio.
+                Assim, fica mais fácil descrever o que os dados mostram e
+                reconhecer o que ainda falta para entender um caso real.
               </p>
               <BuyButton position="after_proof" />
             </div>
@@ -457,15 +460,21 @@ export function App() {
               <p className="section-kicker">O que você recebe</p>
               <h2 id="offer-title">Hemograma Descomplicado</h2>
               <p className="offer-intro">
-                Um PDF completo para estudar e revisar os fundamentos do
-                hemograma de adultos.
+                Abra, entenda, calcule, pratique e confira: um PDF que guia seu
+                estudo do primeiro número à síntese.
               </p>
               <ul className="offer-list">
-                <li>Explicações e diagramas para compreender cada medida.</li>
-                <li>Exemplos resolvidos para acompanhar o raciocínio.</li>
-                <li>12 desafios comentados para praticar e conferir.</li>
-                <li>Ficha de leitura e glossário para retomar dúvidas.</li>
-                <li>Índice clicável para localizar um tema.</li>
+                <li>Diagramas que mostram o que cada medida representa.</li>
+                <li>Exemplos resolvidos com o raciocínio à vista.</li>
+                <li>
+                  12 desafios comentados para testar e corrigir sua leitura.
+                </li>
+                <li>
+                  Ficha de leitura e glossário para retomar sem se perder.
+                </li>
+                <li>
+                  Índice clicável para encontrar sua dúvida em poucos toques.
+                </li>
               </ul>
               <p className="offer-price">
                 <strong>{site.price}</strong>

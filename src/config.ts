@@ -1,7 +1,7 @@
 export const site = {
   product: "Hemograma Descomplicado",
   price: "R$37,00",
-  checkoutUrl: import.meta.env.VITE_CHECKOUT_URL?.trim() || "",
+  checkoutUrl: "https://pay.kiwify.com.br/ynrSMcQ",
   supportEmail: import.meta.env.VITE_SUPPORT_EMAIL?.trim() || "",
   sellerName: import.meta.env.VITE_SELLER_NAME?.trim() || "",
   brandLogo:

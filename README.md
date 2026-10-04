@@ -1,6 +1,6 @@
 # Hemograma Descomplicado
 
-Landing page em React, TypeScript e Vite para o e-book **Hemograma Descomplicado**. A página está implementada e pode ser revisada localmente. A venda permanece desativada até ser configurado um checkout real deste produto.
+Landing page em React, TypeScript e Vite para o e-book **Hemograma Descomplicado**. Todos os botões de compra levam ao [checkout do produto na Kiwify](https://pay.kiwify.com.br/ynrSMcQ).
 
 ## Executar
 
@@ -9,15 +9,15 @@ npm install
 npm run dev
 ```
 
-Abra `http://localhost:5173/`. `npm run build` gera a versão usada pela Vercel. Sem `VITE_CHECKOUT_URL` válida, a página é publicada com os botões de compra desativados e uma mensagem clara; nenhuma compra é simulada. `npm run build:review` gera a mesma prévia sem checkout.
+Abra `http://localhost:5173/`. `npm run build` gera a versão usada pela Vercel. `npm run build:review` gera a mesma prévia. O checkout padrão já está configurado no código.
 
-Copie `.env.example` para `.env.local` e preencha somente dados confirmados. O checkout deve ser HTTPS. Todos os CTAs usam a mesma URL e recebem apenas os parâmetros `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` e `utm_term`, limitados a 120 caracteres alfanuméricos ou de pontuação simples. Ajuste a lista em `src/config.ts` após confirmar os parâmetros aceitos pela plataforma. Nunca inclua dados pessoais ou tokens em UTMs.
+Copie `.env.example` para `.env.local` apenas se precisar configurar dados comerciais. O checkout está fixado em `src/config.ts` para garantir o mesmo destino em todos os CTAs. Eles recebem apenas os parâmetros `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` e `utm_term`, limitados a 120 caracteres alfanuméricos ou de pontuação simples. Ajuste a lista em `src/config.ts` após confirmar os parâmetros aceitos pela plataforma. Nunca inclua dados pessoais ou tokens em UTMs.
 
 ## Publicar na Vercel
 
-Importe o repositório `Sophia220510/pdflab2` com o preset **Vite**. A Vercel pode usar o comando padrão `npm run build` e o diretório de saída `dist`. O build funciona sem variáveis de ambiente; nesse estado, o site é uma apresentação do material, sem compra ativa.
+Importe o repositório `Sophia220510/pdflab2` com o preset **Vite**. A Vercel pode usar o comando padrão `npm run build` e o diretório de saída `dist`. O build funciona sem variáveis de ambiente e já publica o checkout da Kiwify.
 
-Quando o checkout exclusivo do **Hemograma Descomplicado** estiver pronto, configure `VITE_CHECKOUT_URL` com a URL HTTPS em **Project Settings → Environment Variables** para Production e faça um novo deploy. Confira o destino dos CTAs depois da publicação. Não use o checkout do Guia do Primeiro Estágio.
+O checkout está fixado no código, portanto uma variável `VITE_CHECKOUT_URL` antiga na Vercel não altera o destino. Confira os CTAs depois da publicação.
 
 ## Conteúdo conferido nos PDFs
 
@@ -45,7 +45,7 @@ O ZIP `fotos_laboratorio_santa_helena.zip` foi examinado, mas as fotos com paine
 
 ## Pendências comerciais
 
-1. Fornecer a URL do checkout exclusivo do e-book principal, confirmar entrega, meios de pagamento e quais UTMs são aceitas.
+1. Confirmar entrega, meios de pagamento e quais UTMs são aceitas pela Kiwify.
 2. Confirmar responsável comercial, contato de suporte e links reais de política/garantia, quando disponíveis.
 3. Confirmar qualquer credencial adicional e participação técnica de Paulo Brandão antes de inserir afirmações além das imagens fornecidas.
 
@@ -63,6 +63,5 @@ Deixe ambos **desmarcados por padrão** no checkout. O produto principal custa R
 
 O Meta Pixel `2202477087281618` envia `PageView` ao carregar a página, `ViewContent` ao apresentar a oferta e `InitiateCheckout` quando alguém clica em um CTA com checkout válido. O código continua emitindo eventos locais `hemograma:analytics` para `offer_view`, `cta_click` (com posição) e `preview_open` (com página e tema). Não há evento `Purchase` na landing page: a confirmação de compra pertence ao checkout. Os parâmetros configurados para `ViewContent` e `InitiateCheckout` contêm apenas o identificador do produto, preço e moeda.
 
-Para testar com uma URL temporária de sua autoria, defina `VITE_CHECKOUT_URL` no processo de desenvolvimento e execute `npm run test:smoke` com o servidor em `http://localhost:4174/`. Esse teste verifica largura, imagens, primeira tela de 390 px, modal, foco, FAQ, barra fixa e UTMs em sete larguras. A URL de exemplo usada durante o desenvolvimento não está no código nem na configuração de produção.
+Execute `npm run test:smoke` com o servidor em `http://localhost:4174/`. Esse teste verifica os quatro destinos da Kiwify, largura, imagens, primeira tela de 390 px, modal, foco, FAQ, barra fixa e UTMs em sete larguras. Execute `npm run test:pixel` para verificar os eventos do Meta Pixel.
 
-Uma auditoria Lighthouse Mobile no build de revisão local obteve desempenho **95/100**, acessibilidade **100/100**, LCP de laboratório **2,9 s**, CLS **0** e TBT **0 ms**. O Chrome produziu o relatório JSON, mas a CLI retornou `EPERM` ao tentar remover seu diretório temporário após a medição. As metas LCP, CLS e INP são de campo; esta auditoria não mede INP real nem garante os resultados para visitantes.

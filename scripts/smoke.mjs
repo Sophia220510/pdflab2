@@ -17,6 +17,26 @@ try {
       throw new Error(
         `Rolagem horizontal em ${width}px: ${JSON.stringify(dimensions)}`,
       );
+    const purchaseLinks = page.locator(".buy-button");
+    if ((await purchaseLinks.count()) !== 4)
+      throw new Error(`Número inesperado de botões de compra em ${width}px`);
+    for (const href of await purchaseLinks.evaluateAll((links) =>
+      links.map((link) => link.getAttribute("href")),
+    )) {
+      if (!href || new URL(href).origin !== "https://pay.kiwify.com.br" ||
+          new URL(href).pathname !== "/ynrSMcQ")
+        throw new Error(`Destino de compra incorreto em ${width}px: ${href}`);
+    }
+    const sticky = page.locator(".sticky-purchase .buy-button");
+    if (!(await sticky.isVisible()))
+      throw new Error(`Compra fixa ausente em ${width}px`);
+    for (const offset of [0, 350, 1000, 2500]) {
+      await page.evaluate((y) => window.scrollTo(0, y), offset);
+      const box = await sticky.boundingBox();
+      if (!box || box.y < 0 || box.y + box.height > 844)
+        throw new Error(`Compra fixa fora da tela em ${width}px, scroll ${offset}`);
+    }
+    await page.evaluate(() => window.scrollTo(0, 0));
     const brokenImages = await page
       .locator("img")
       .evaluateAll(async (images) => {
@@ -66,14 +86,13 @@ try {
         (el) => el === document.activeElement,
       );
       if (!focused) throw new Error("Foco não voltou ao botão de prévia");
-      await page.evaluate(() => window.scrollTo(0, 1000));
-      await page.waitForTimeout(200);
-      if (!(await page.locator(".sticky-purchase").isVisible()))
-        throw new Error("Barra fixa não apareceu após o hero");
-      await page.locator("footer").scrollIntoViewIfNeeded();
-      await page.waitForTimeout(200);
-      if (await page.locator(".sticky-purchase").isVisible())
-        throw new Error("Barra fixa cobre o rodapé");
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      const footerAndBar = await page.evaluate(() => ({
+        footerBottom: document.querySelector("footer").getBoundingClientRect().bottom,
+        barTop: document.querySelector(".sticky-purchase").getBoundingClientRect().top,
+      }));
+      if (footerAndBar.footerBottom > footerAndBar.barTop)
+        throw new Error("Barra fixa cobre o rodapé no fim da página");
       const firstFaq = page.locator(".faq summary").first();
       await firstFaq.focus();
       await page.keyboard.press("Enter");

@@ -46,7 +46,7 @@ const faqs = [
   ],
   [
     "Como recebo e acesso?",
-    "O modo de pagamento e a entrega digital serão informados no checkout assim que ele estiver configurado para este produto.",
+    "Você conclui a compra na Kiwify. Confira as formas de pagamento e as instruções de acesso exibidas no checkout.",
   ],
   [
     "Existem materiais complementares?",
@@ -91,7 +91,7 @@ function BuyButton({
   compact?: boolean;
 }) {
   const href = checkoutDestination(window.location.search);
-  const label = compact ? "Quero destravar" : "Quero destravar o hemograma";
+  const label = compact ? "Comprar por R$37" : "Quero meu e-book por R$37";
   if (!href) {
     return (
       <button
@@ -185,7 +185,6 @@ function PreviewModal({
 
 export function App() {
   const [activePreview, setActivePreview] = useState<Preview | null>(null);
-  const [stickyVisible, setStickyVisible] = useState(false);
   const opener = useRef<HTMLButtonElement | null>(null);
   const closePreview = useCallback(() => {
     setActivePreview(null);
@@ -194,32 +193,6 @@ export function App() {
 
   useEffect(() => {
     track("offer_view");
-    const visible = new Set<Element>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries)
-          entry.isIntersecting
-            ? visible.add(entry.target)
-            : visible.delete(entry.target);
-        const hero = document.querySelector(".hero .main-cta");
-        const footer = document.querySelector("footer");
-        setStickyVisible(
-          Boolean(
-            hero &&
-            !visible.has(hero) &&
-            window.scrollY > 300 &&
-            !Array.from(visible).some(
-              (el) => el.classList.contains("main-cta") || el === footer,
-            ),
-          ),
-        );
-      },
-      { threshold: 0.05 },
-    );
-    document
-      .querySelectorAll(".main-cta, footer")
-      .forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
   }, []);
 
   const openPreview = (preview: Preview, button: HTMLButtonElement) => {
@@ -254,17 +227,17 @@ export function App() {
           <div className="hero-copy">
             <p className="eyebrow">Hemograma Descomplicado · e-book PDF</p>
             <h1 id="hero-title">
-              Pare de decorar siglas. Enxergue a lógica do hemograma.
+              Chega de travar no hemograma.
             </h1>
             <p className="hero-subtitle">
-              Uma leitura visual e prática para conectar Hb, VCM, RDW,
-              leucócitos e plaquetas — e construir uma síntese do hemograma de
-              adultos.
+              Entenda o que os números mostram. Um caminho visual para conectar
+              Hb, VCM, RDW, leucócitos e plaquetas — e construir uma leitura
+              organizada do exame de adultos.
             </p>
             <ul className="hero-benefits">
-              <li>Entenda o papel de Hb, VCM e RDW.</li>
-              <li>Conecte as três séries do exame.</li>
-              <li>Treine com 12 desafios comentados.</li>
+              <li>Saiba por onde começar, mesmo quando o exame parece confuso.</li>
+              <li>Veja como as medidas se relacionam em exemplos resolvidos.</li>
+              <li>Teste sua leitura com 12 desafios comentados.</li>
             </ul>
             <div className="hero-purchase">
               <p className="price">
@@ -554,7 +527,7 @@ export function App() {
         </div>
       </footer>
 
-      {stickyVisible && !activePreview && (
+      {!activePreview && (
         <div className="sticky-purchase">
           <div className="shell sticky-inner">
             <span>

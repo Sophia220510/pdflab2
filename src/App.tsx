@@ -259,7 +259,7 @@ export function App() {
                 />
                 <span>
                   <strong>Paulo Brandão</strong>
-                  <small>Experiência em Análises Clínicas</small>
+                  <small>Mais de 30 anos em Análises Clínicas · criou este e-book para ajudar estudantes</small>
                 </span>
               </div>
             </div>
@@ -389,8 +389,13 @@ export function App() {
             <div>
               <p className="section-kicker">Estudo com método</p>
               <h2 id="proof-title">
-                Um caminho claro para conectar as peças do exame.
+                Mais de 30 anos de experiência transformados em um caminho de estudo.
               </h2>
+              <p>
+                O e-book foi criado por um profissional de Análises Clínicas com
+                mais de 30 anos de experiência, com o propósito de ajudar
+                estudantes a entender o hemograma com mais clareza.
+              </p>
               <p>
                 Primeiro, cada medida responde a uma pergunta concreta. Depois,
                 você confere as contas, percorre as três séries e acompanha
@@ -413,7 +418,7 @@ export function App() {
                 />
                 <figcaption>
                   <strong>Paulo Brandão</strong>
-                  <span>Experiência em Análises Clínicas.</span>
+                  <span>Mais de 30 anos em Análises Clínicas. Criou este material para ajudar estudantes.</span>
                 </figcaption>
               </figure>
               <figure>

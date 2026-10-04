@@ -79,13 +79,9 @@ try {
         throw new Error("Barra fixa visível sobre o modal");
       await page.keyboard.press("Escape");
       if (await dialog.count()) throw new Error("Modal não fechou com Escape");
-      await page.waitForFunction(() =>
-        document.activeElement?.textContent?.includes("Ampliar página"),
+      await page.waitForFunction(
+        () => document.activeElement === document.querySelector(".preview-content button"),
       );
-      const focused = await opener.evaluate(
-        (el) => el === document.activeElement,
-      );
-      if (!focused) throw new Error("Foco não voltou ao botão de prévia");
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       const footerAndBar = await page.evaluate(() => ({
         footerBottom: document.querySelector("footer").getBoundingClientRect().bottom,

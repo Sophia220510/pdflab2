@@ -47,7 +47,7 @@ O ZIP `fotos_laboratorio_santa_helena.zip` foi examinado, mas as fotos com paine
 
 1. Confirmar entrega, meios de pagamento e quais UTMs são aceitas pela Kiwify.
 2. Confirmar responsável comercial, contato de suporte e links reais de política/garantia, quando disponíveis.
-3. Confirmar qualquer credencial adicional e participação técnica de Paulo Brandão antes de inserir afirmações além das imagens fornecidas.
+3. Confirmar qualquer credencial adicional de Paulo Brandão antes de inserir afirmações além dos mais de 30 anos de experiência informados pelo responsável.
 
 Nenhum dos complementos está configurado em plataforma de pagamento. Eles aparecem uma vez no FAQ como opcionais e pagos à parte.
 

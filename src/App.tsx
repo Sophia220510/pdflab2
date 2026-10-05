@@ -49,10 +49,6 @@ const faqs = [
     "Assim que o pagamento for aprovado, a Kiwify envia ao e-mail usado na compra uma mensagem de confirmação com o botão de acesso ao produto. Abra o Hemograma Descomplicado por esse botão para acessar o PDF. Se não encontrar a mensagem, confira a caixa de spam e use o mesmo e-mail informado na compra.",
   ],
   [
-    "E se eu quiser pedir reembolso?",
-    "Você tem 7 dias corridos após a compra para solicitar o reembolso. Use o link de reembolso da Kiwify no rodapé ou o contato do produtor informado no e-mail de confirmação da compra.",
-  ],
-  [
     "Existem materiais complementares?",
     "Sim. Hemograma em Casos e Hemograma de Bolso são PDFs opcionais, vendidos à parte por R$9,90 cada no checkout. O e-book principal pode ser estudado sozinho.",
   ],
@@ -482,8 +478,7 @@ export function App() {
               </p>
               <BuyButton position="offer" />
               <p className="guarantee-note">
-                <strong>Garantia de 7 dias.</strong> Se o material não for para você,
-                solicite reembolso dentro desse prazo.
+                <strong>Garantia de 7 dias</strong> para você conhecer o material com tranquilidade.
               </p>
               <p className="microcopy">
                 Somente o e-book principal. Materiais adicionais são opcionais e
@@ -531,11 +526,6 @@ export function App() {
               </p>
             )}
             <p>Garantia de 7 dias após a compra.</p>
-            <p>
-              <a href="https://reembolso.kiwify.com.br/">
-                Solicitar reembolso pela Kiwify
-              </a>
-            </p>
           </div>
         </div>
       </footer>

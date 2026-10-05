@@ -46,7 +46,11 @@ const faqs = [
   ],
   [
     "Como recebo e acesso?",
-    "Você conclui a compra na Kiwify. Confira as formas de pagamento e as instruções de acesso exibidas no checkout.",
+    "Assim que o pagamento for aprovado, a Kiwify envia ao e-mail usado na compra uma mensagem de confirmação com o botão de acesso ao produto. Abra o Hemograma Descomplicado por esse botão para acessar o PDF. Se não encontrar a mensagem, confira a caixa de spam e use o mesmo e-mail informado na compra.",
+  ],
+  [
+    "E se eu quiser pedir reembolso?",
+    "Você tem 7 dias corridos após a compra para solicitar o reembolso. Use o link de reembolso da Kiwify no rodapé ou o contato do produtor informado no e-mail de confirmação da compra.",
   ],
   [
     "Existem materiais complementares?",
@@ -244,7 +248,7 @@ export function App() {
                 <strong>{site.price}</strong> <span>pagamento único</span>
               </p>
               <BuyButton position="hero" />
-              <p className="microcopy">E-book PDF em português · 53 páginas</p>
+              <p className="microcopy">E-book PDF em português · 53 páginas · garantia de 7 dias</p>
               {!checkoutDestination(window.location.search) && (
                 <p className="checkout-note" id="checkout-pending">
                   Compra indisponível até a configuração do checkout.
@@ -253,7 +257,7 @@ export function App() {
               <div className="hero-authority">
                 <img
                   src="/images/paulo-brandao.webp"
-                  alt="Paulo Brandão, em foto identificada fornecida para a página"
+                  alt="Paulo Brandão"
                   width="52"
                   height="52"
                 />
@@ -266,7 +270,7 @@ export function App() {
           </div>
           <div
             className="hero-visual"
-            aria-label="Capa real do e-book Hemograma Descomplicado"
+            aria-label="Capa do e-book Hemograma Descomplicado"
           >
             <div className="book-backdrop" />
             <img
@@ -424,14 +428,14 @@ export function App() {
               <figure>
                 <img
                   src="/images/santa-helena-recepcao.webp"
-                  alt="Recepção real do Laboratório Santa Helena"
+                  alt="Recepção do Laboratório Santa Helena"
                   width="1080"
                   height="720"
                   loading="lazy"
                 />
                 <figcaption>
                   <strong>Laboratório Santa Helena</strong>
-                  <span>Recepção apresentada no site oficial.</span>
+                  <span>Um dos espaços do Laboratório Santa Helena.</span>
                 </figcaption>
               </figure>
             </div>
@@ -446,7 +450,7 @@ export function App() {
             <div className="offer-cover">
               <img
                 src="/images/capa.webp"
-                alt="Capa real do e-book Hemograma Descomplicado"
+                alt="Capa do e-book Hemograma Descomplicado"
                 width="1044"
                 height="1500"
                 loading="lazy"
@@ -477,6 +481,10 @@ export function App() {
                 <span>pagamento único</span>
               </p>
               <BuyButton position="offer" />
+              <p className="guarantee-note">
+                <strong>Garantia de 7 dias.</strong> Se o material não for para você,
+                solicite reembolso dentro desse prazo.
+              </p>
               <p className="microcopy">
                 Somente o e-book principal. Materiais adicionais são opcionais e
                 pagos à parte.
@@ -514,7 +522,7 @@ export function App() {
             <strong>Hemograma Descomplicado</strong>
             <p>E-book de estudo em Análises Clínicas.</p>
           </div>
-          <div>
+          <div className="footer-support">
             {site.sellerName && <p>Responsável comercial: {site.sellerName}</p>}
             {site.supportEmail && (
               <p>
@@ -522,12 +530,12 @@ export function App() {
                 <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>
               </p>
             )}
-            {!site.sellerName && !site.supportEmail && (
-              <p>
-                Identificação comercial e contato de suporte pendentes de
-                confirmação.
-              </p>
-            )}
+            <p>Garantia de 7 dias após a compra.</p>
+            <p>
+              <a href="https://reembolso.kiwify.com.br/">
+                Solicitar reembolso pela Kiwify
+              </a>
+            </p>
           </div>
         </div>
       </footer>

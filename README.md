@@ -45,9 +45,10 @@ O ZIP `fotos_laboratorio_santa_helena.zip` foi examinado, mas as fotos com paine
 
 ## Pendências comerciais
 
-1. Confirmar entrega, meios de pagamento e quais UTMs são aceitas pela Kiwify.
-2. Confirmar responsável comercial, contato de suporte e links reais de política/garantia, quando disponíveis.
-3. Confirmar qualquer credencial adicional de Paulo Brandão antes de inserir afirmações além dos mais de 30 anos de experiência informados pelo responsável.
+1. Confirmar no painel da Kiwify se o PDF está publicado no produto e se o botão de acesso do e-mail leva diretamente ao conteúdo. A resposta da página usa o fluxo padrão de e-mail após pagamento aprovado descrito pela Kiwify.
+2. Confirmar meios de pagamento e quais UTMs são aceitas pela Kiwify.
+3. Confirmar responsável comercial, contato de suporte e eventual política adicional, quando disponíveis.
+4. Confirmar qualquer credencial adicional de Paulo Brandão antes de inserir afirmações além dos mais de 30 anos de experiência informados pelo responsável.
 
 Nenhum dos complementos está configurado em plataforma de pagamento. Eles aparecem uma vez no FAQ como opcionais e pagos à parte.
 

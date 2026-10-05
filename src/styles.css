@@ -478,6 +478,15 @@ ul {
   font-size: 0.9rem;
   color: #6e7a80;
 }
+.guarantee-note {
+  margin: 19px 0 0;
+  color: #36535a;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.guarantee-note strong {
+  color: #193a42;
+}
 .faq {
   background: #f0f1ed;
 }

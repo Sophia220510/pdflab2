@@ -58,7 +58,7 @@ try {
       const sectionOrder = await page.locator("main > section").evaluateAll((sections) =>
         sections.map((section) => section.classList[0]),
       );
-      if (sectionOrder.join(",") !== "hero,previews,difficulty,proof,offer,faq")
+      if (sectionOrder.join(",") !== "hero,comparison-demo,exercise-demo,difficulty,proof,offer,faq")
         throw new Error(`Ordem das seções incorreta: ${sectionOrder.join(",")}`);
       const cta = page.locator(".hero .buy-button");
       const box = await cta.boundingBox();
@@ -78,19 +78,33 @@ try {
       await page.waitForFunction(() =>
         location.hash === "#previews" && document.querySelector("#previews").getBoundingClientRect().top < innerHeight / 2,
       );
+      await page.locator("#previews").screenshot({ path: ".work/validated-comparison-mobile.png" });
+      await page.locator(".exercise-demo").screenshot({ path: ".work/validated-exercise-mobile.png" });
       const opener = page
-        .getByRole("button", { name: /abrir página de exemplo/i })
-        .first();
+        .getByRole("button", { name: /abrir página real do e-book/i });
       await opener.click();
       const dialog = page.getByRole("dialog");
       await dialog.waitFor();
+      if (!(await dialog.locator("img").getAttribute("src"))?.endsWith("percentual-absoluto.webp"))
+        throw new Error("Amostra não abriu a página 28 inteira");
       if (await page.locator(".sticky-purchase").count())
         throw new Error("Barra fixa visível sobre o modal");
       await page.keyboard.press("Escape");
       if (await dialog.count()) throw new Error("Modal não fechou com Escape");
       await page.waitForFunction(
-        () => document.activeElement === document.querySelector(".preview-content button"),
+        () => document.activeElement === document.querySelector(".comparison-demo button"),
       );
+      for (const [label, filename] of [
+        ["Abrir página do desafio", "pagina-45.webp"],
+        ["Abrir página da resolução", "pagina-48.webp"],
+      ]) {
+        await page.getByRole("button", { name: new RegExp(label, "i") }).click();
+        await dialog.waitFor();
+        if (!(await dialog.locator("img").getAttribute("src"))?.endsWith(filename))
+          throw new Error(`Página errada no botão ${label}`);
+        await page.keyboard.press("Escape");
+        await dialog.waitFor({ state: "detached" });
+      }
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       const footerAndBar = await page.evaluate(() => ({
         footerBottom: document.querySelector("footer").getBoundingClientRect().bottom,

@@ -1,31 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { checkoutDestination, site, type CtaPosition } from "./config";
 
-type Preview = { src: string; title: string; caption: string; page: number };
+type Preview = { src: string; title: string; page: number };
 
-const previews: Preview[] = [
-  {
-    src: "/images/vcm.webp",
-    title: "VCM: o tamanho médio",
-    caption:
-      "Enxergue o que o VCM mostra — e por que uma média pode esconder diferenças importantes.",
-    page: 11,
-  },
-  {
-    src: "/images/percentual-absoluto.webp",
-    title: "Percentual pode enganar",
-    caption:
-      "Uma conta simples revela a armadilha: percentual maior não significa contagem maior.",
-    page: 28,
-  },
-  {
-    src: "/images/sintese.webp",
-    title: "Do dado à síntese",
-    caption:
-      "Veja os dados de um caso fictício se encaixarem em uma síntese, passo a passo.",
-    page: 41,
-  },
-];
+const comparisonPreview: Preview = {
+  src: "/images/percentual-absoluto.webp",
+  title: "Percentual pode enganar",
+  page: 28,
+};
+const challengePreview: Preview = {
+  src: "/images/pagina-45.webp",
+  title: "Desafio 05: resolva o diferencial",
+  page: 45,
+};
+const solutionPreview: Preview = {
+  src: "/images/pagina-48.webp",
+  title: "Resolução 05: confira o raciocínio",
+  page: 48,
+};
 
 const faqs = [
   [
@@ -50,7 +42,7 @@ const faqs = [
   ],
   [
     "Existem materiais complementares?",
-    "Sim. Hemograma em Casos e Hemograma de Bolso são PDFs opcionais, vendidos à parte por R$9,90 cada no checkout. O e-book principal pode ser estudado sozinho.",
+    "Sim. Hemograma em Casos traz mais situações para praticar; Hemograma de Bolso facilita a consulta e a revisão. Cada PDF custa R$9,90 no checkout, é opcional e não é necessário para estudar o e-book principal.",
   ],
 ];
 
@@ -290,50 +282,109 @@ export function App() {
         </section>
 
         <section
-          className="previews section-pad shell"
+          className="comparison-demo section-pad shell"
           id="previews"
-          aria-labelledby="previews-title"
+          aria-labelledby="comparison-title"
         >
-          <div className="section-heading">
-            <div>
-              <p className="section-kicker">Por dentro do PDF</p>
-              <h2 id="previews-title">Veja como o material explica</h2>
-            </div>
+          <div className="demo-heading">
+            <p className="section-kicker">Página 28 do e-book</p>
+            <h2 id="comparison-title">Entenda a relação entre os números</h2>
             <p>
-              Estas são três páginas reais do e-book. Abra as amostras para
-              conhecer as explicações, os diagramas e um exemplo resolvido
-              antes de comprar.
+              Uma porcentagem maior nem sempre representa uma contagem maior.
+              Nesta página do e-book, você acompanha a comparação e entende
+              como fazer a conta.
             </p>
           </div>
-          <div className="preview-grid">
-            {previews.map((preview) => (
-              <article className="preview-card" key={preview.page}>
-                <div className="preview-image">
-                  <img
-                    src={preview.src}
-                    alt={`Amostra da página ${preview.page}: ${preview.title}`}
-                    width="1044"
-                    height="1500"
-                    loading="lazy"
-                  />
+          <div className="comparison-grid">
+            <img
+              src="/images/percentual-60.webp"
+              alt="3.000 leucócitos por microlitro: 60% de linfócitos são 1.800 linfócitos por microlitro"
+              width="555"
+              height="360"
+              loading="lazy"
+            />
+            <img
+              src="/images/percentual-30.webp"
+              alt="12.000 leucócitos por microlitro: 30% de linfócitos são 3.600 linfócitos por microlitro"
+              width="555"
+              height="360"
+              loading="lazy"
+            />
+          </div>
+          <p className="demo-prompt">Abra a amostra e veja como o material explica.</p>
+          <button
+            className="sample-button"
+            type="button"
+            onClick={(event) => openPreview(comparisonPreview, event.currentTarget)}
+          >
+            Abrir página real do e-book <span aria-hidden="true">↗</span>
+          </button>
+        </section>
+
+        <section
+          className="exercise-demo section-pad"
+          aria-labelledby="exercise-title"
+        >
+          <div className="shell">
+            <div className="demo-heading">
+              <p className="section-kicker">Desafio 05 · páginas 45 e 48</p>
+              <h2 id="exercise-title">Leia, tente resolver e confira o raciocínio</h2>
+              <p>
+                Os 12 desafios do e-book têm respostas comentadas para você
+                comparar sua solução e identificar o que precisa revisar.
+              </p>
+            </div>
+            <div className="exercise-grid">
+              <article className="exercise-card">
+                <span className="page-number">01 · TENTE RESOLVER</span>
+                <img
+                  src="/images/desafio-05.webp"
+                  alt="Desafio 05: leucócitos 3.000 por microlitro, linfócitos 60% e neutrófilos 30%. Calcule os absolutos."
+                  width="1152"
+                  height="198"
+                  loading="lazy"
+                />
+                <div className="exercise-transcript">
+                  <strong>05 | Resolva o diferencial</strong>
+                  <p>
+                    Leucócitos 3.000/µL; linfócitos 60%; neutrófilos 30%.
+                    Calcule os absolutos.
+                  </p>
                 </div>
-                <div className="preview-content">
-                  <span className="page-number">
-                    PÁGINA {String(preview.page).padStart(2, "0")}
-                  </span>
-                  <h3>{preview.title}</h3>
-                  <p>{preview.caption}</p>
-                  <button
-                    type="button"
-                    onClick={(event) =>
-                      openPreview(preview, event.currentTarget)
-                    }
-                  >
-                    Abrir página de exemplo <span aria-hidden="true">↗</span>
-                  </button>
-                </div>
+                <button
+                  className="sample-button"
+                  type="button"
+                  onClick={(event) => openPreview(challengePreview, event.currentTarget)}
+                >
+                  Abrir página do desafio <span aria-hidden="true">↗</span>
+                </button>
               </article>
-            ))}
+              <article className="exercise-card">
+                <span className="page-number">02 · CONFIRA A RESPOSTA</span>
+                <img
+                  src="/images/resolucao-05.webp"
+                  alt="Resolução 05: 1.800 linfócitos e 900 neutrófilos por microlitro, com explicação sobre contagem absoluta."
+                  width="1152"
+                  height="273"
+                  loading="lazy"
+                />
+                <div className="exercise-transcript">
+                  <strong>05 | Resolva o diferencial</strong>
+                  <p>
+                    Linfócitos = 1.800/µL; neutrófilos = 900/µL. A porcentagem
+                    alta de linfócitos pode decorrer da redução de outra população.
+                    Compare cada absoluto ao seu intervalo.
+                  </p>
+                </div>
+                <button
+                  className="sample-button"
+                  type="button"
+                  onClick={(event) => openPreview(solutionPreview, event.currentTarget)}
+                >
+                  Abrir página da resolução <span aria-hidden="true">↗</span>
+                </button>
+              </article>
+            </div>
           </div>
         </section>
 

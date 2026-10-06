@@ -230,7 +230,7 @@ ul {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.previews {
+.comparison-demo {
   scroll-margin-top: 20px;
 }
 .checkout-note {
@@ -311,75 +311,83 @@ ul {
   color: #4c5f69;
   font-size: 1.04rem;
 }
-.section-heading {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 50px;
-  margin-bottom: 38px;
+.demo-heading {
+  max-width: 840px;
+  margin-bottom: 30px;
 }
-.section-heading h2 {
-  margin: 0;
+.demo-heading p:not(.section-kicker) {
+  max-width: 730px;
+  margin-bottom: 0;
+  color: #4b5d66;
+  font-size: 1.04rem;
 }
-.section-heading > p {
-  max-width: 330px;
-  color: #5e6e77;
-  margin: 0;
-}
-.preview-grid {
+.comparison-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
-}
-.preview-card {
-  border: 1px solid #e3e6e3;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding: 20px;
   background: #fff;
+  border: 1px solid #e3e6e3;
+  border-radius: 14px;
+  box-shadow: 0 14px 35px #1a34450b;
+}
+.comparison-grid img {
+  width: 100%;
+  border-radius: 8px;
+}
+.demo-prompt {
+  margin: 23px 0 12px;
+  color: #40515b;
+  font-weight: 700;
+}
+.sample-button {
+  min-height: 46px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 7px;
+  background: #183140;
+  color: #fff;
+  font-weight: 800;
+  line-height: 1.3;
+}
+.sample-button:hover {
+  background: #285164;
+}
+.exercise-demo {
+  background: #edf1f1;
+}
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.exercise-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e0e5e3;
   border-radius: 12px;
-  overflow: hidden;
   box-shadow: 0 8px 28px #1a34450b;
 }
-.preview-image {
-  height: 310px;
-  overflow: hidden;
-  background: #f0f0ed;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-.preview-image img {
+.exercise-card img {
   width: 100%;
-  object-fit: cover;
-  object-position: top;
+  height: auto;
 }
-.preview-content {
-  padding: 24px;
+.exercise-card .sample-button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+.exercise-transcript {
+  display: none;
 }
 .page-number {
   font-size: 0.69rem;
   letter-spacing: 0.13em;
   color: #bc4658;
   font-weight: 800;
-}
-.preview-content h3 {
-  margin: 10px 0;
-}
-.preview-content p {
-  min-height: 76px;
-  color: #4b5d66;
-  margin-bottom: 10px;
-  font-size: 0.93rem;
-}
-.preview-content button {
-  border: 0;
-  background: transparent;
-  color: #a53647;
-  padding: 8px 0;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  font-weight: 800;
-}
-.preview-content button span {
-  margin-left: 6px;
 }
 .proof {
   background: #183140;
@@ -665,33 +673,35 @@ ul {
   .difficulty-grid p {
     margin: 6px 0 0;
   }
-  .section-heading {
-    display: block;
-  }
-  .section-heading > p {
-    margin-top: 12px;
-  }
-  .preview-grid {
+  .comparison-grid,
+  .exercise-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
   }
-  .preview-card {
-    display: grid;
-    grid-template-columns: 40% 1fr;
-    min-height: 220px;
+  .comparison-grid {
+    padding: 12px;
+    gap: 10px;
   }
-  .preview-image {
-    height: 100%;
-  }
-  .preview-image img {
-    height: 100%;
-    object-fit: cover;
-  }
-  .preview-content {
+  .exercise-card {
     padding: 20px;
+    gap: 15px;
   }
-  .preview-content p {
-    min-height: 0;
+  .exercise-card img {
+    display: none;
+  }
+  .exercise-transcript {
+    display: block;
+    padding: 18px;
+    background: #faeaea;
+    border-radius: 8px;
+    color: #263b47;
+  }
+  .exercise-transcript strong {
+    color: #b43f51;
+  }
+  .exercise-transcript p {
+    margin: 10px 0 0;
+    font-size: 1rem;
+    line-height: 1.55;
   }
   .proof-layout {
     display: block;
@@ -757,21 +767,8 @@ ul {
   .microcopy {
     margin-top: 12px;
   }
-  .preview-card {
-    grid-template-columns: 39% 1fr;
-  }
-  .preview-content {
-    padding: 15px;
-  }
-  .preview-content h3 {
-    font-size: 1.16rem;
-  }
-  .preview-content p {
-    font-size: 0.84rem;
-    line-height: 1.45;
-  }
-  .preview-content button {
-    font-size: 0.87rem;
+  .sample-button {
+    width: 100%;
   }
   .sticky-inner .buy-button {
     width: auto;
@@ -800,15 +797,6 @@ ul {
   }
   .price span {
     font-size: 0.84rem;
-  }
-  .preview-card {
-    display: block;
-  }
-  .preview-image {
-    height: 210px;
-  }
-  .preview-content {
-    padding: 18px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

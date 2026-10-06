@@ -34,13 +34,18 @@ Os PDFs originais permanecem fora do repositório e do diretório público.
 | Arquivo | Origem e uso |
 | --- | --- |
 | `public/images/capa.webp` | Página 1 do PDF principal; capa na página e imagem de compartilhamento. |
-| `public/images/vcm.webp` | Página 11 do PDF principal; prévia sobre VCM. |
-| `public/images/percentual-absoluto.webp` | Página 28 do PDF principal; prévia sobre percentual e absoluto. |
-| `public/images/sintese.webp` | Página 41 do PDF principal; prévia do exemplo integrado. |
+| `public/images/percentual-absoluto.webp` | Página 28 inteira, aberta pelo botão da demonstração. |
+| `public/images/percentual-60.webp`, `percentual-30.webp` | Recortes fiéis dos dois exemplos da página 28, exibidos em tamanho legível no celular. |
+| `public/images/desafio-05.webp`, `resolucao-05.webp` | Recortes do desafio 05 (página 45) e da resolução 05 (página 48). |
+| `public/images/pagina-45.webp`, `pagina-48.webp` | Páginas completas abertas pelos botões do desafio e da resolução. |
 | `public/images/paulo-brandao.webp` | Recorte da imagem identificada `Dr. Paulo Brandão_ referência clínica.png`; sinal compacto de autoridade e retrato. Sem alteração de rosto. |
 | `public/images/santa-helena-logo.svg` | Símbolo SVG extraído do cabeçalho do [site do Laboratório Santa Helena](https://laboratoriosantahelena.vercel.app/), também presente no projeto `pdflab`. Exibido com nome e proporções preservados. |
 
 O ZIP `fotos_laboratorio_santa_helena.zip` foi examinado, mas as fotos com painel de marca exibem **Laboratório Brandão**. Não foram atribuídas ao Laboratório Santa Helena na página. A marca foi identificada no site do Santa Helena vinculado ao projeto anterior `pdflab`.
+
+## Anúncio de demonstração
+
+O vídeo vertical [ads/hemograma-demonstracao-vertical.mp4](ads/hemograma-demonstracao-vertical.mp4) mostra o exemplo da página 28, o desafio 05 e sua resolução antes da capa e do preço. A narração segue o texto fornecido. A sequência, as fontes e a proposta de teste estão em [ads/README.md](ads/README.md).
 
 ## Pendências comerciais
 
@@ -49,15 +54,15 @@ O ZIP `fotos_laboratorio_santa_helena.zip` foi examinado, mas as fotos com paine
 3. Confirmar responsável comercial, contato de suporte e eventual política adicional, quando disponíveis.
 4. Confirmar qualquer credencial adicional de Paulo Brandão antes de inserir afirmações além dos mais de 30 anos de experiência informados pelo responsável.
 
-Nenhum dos complementos está configurado em plataforma de pagamento. Eles aparecem uma vez no FAQ como opcionais e pagos à parte.
+Os dois complementos aparecem no FAQ como opcionais e pagos à parte. Confirme no painel da Kiwify se os order bumps estão ativos e desmarcados por padrão; o texto abaixo está pronto para configurar no checkout.
 
 ### Copy para configurar no checkout
 
-**Hemograma em Casos — R$9,90 adicionais (opcional).** Pratique com 20 casos fictícios. Cada situação traz dados, perguntas de aplicação e uma resolução comentada para você conferir o raciocínio. PDF em português, 49 páginas. Não vem incluído no e-book principal.
+**Hemograma em Casos — R$9,90. Quero praticar com mais casos.** Acrescente 20 casos fictícios com perguntas e resoluções comentadas. Responda antes de consultar e compare seu raciocínio com as explicações.
 
-**Hemograma de Bolso — R$9,90 adicionais (opcional).** Retome dúvidas com 14 fichas, painel de fórmulas e checklist de leitura. Teste sua memória com 30 cartões e confira as respostas. PDF em português, 35 páginas. Não vem incluído no e-book principal.
+**Hemograma de Bolso — R$9,90. Quero facilitar minha revisão.** Acrescente 14 fichas de consulta e 30 perguntas com respostas para localizar fórmulas, revisar conceitos e testar sua memória.
 
-Deixe ambos **desmarcados por padrão** no checkout. O produto principal custa R$37,00 sozinho.
+Casos = prática. Bolso = consulta e revisão. Deixe ambos **desmarcados por padrão** no checkout. O produto principal custa R$37,00 sozinho e não depende dos complementos.
 
 ## Medição e verificação
 

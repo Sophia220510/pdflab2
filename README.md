@@ -39,9 +39,8 @@ Os PDFs originais permanecem fora do repositório e do diretório público.
 | `public/images/sintese.webp` | Página 41 do PDF principal; prévia do exemplo integrado. |
 | `public/images/paulo-brandao.webp` | Recorte da imagem identificada `Dr. Paulo Brandão_ referência clínica.png`; sinal compacto de autoridade e retrato. Sem alteração de rosto. |
 | `public/images/santa-helena-logo.svg` | Símbolo SVG extraído do cabeçalho do [site do Laboratório Santa Helena](https://laboratoriosantahelena.vercel.app/), também presente no projeto `pdflab`. Exibido com nome e proporções preservados. |
-| `public/images/santa-helena-recepcao.webp` | Foto da recepção já usada no projeto `pdflab` e apresentada na primeira tela do [site do laboratório](https://laboratoriosantahelena.vercel.app/); bloco de autoridade. |
 
-O ZIP `fotos_laboratorio_santa_helena.zip` foi examinado, mas as fotos com painel de marca exibem **Laboratório Brandão**. Não foram atribuídas ao Laboratório Santa Helena na página. A marca e a recepção foram identificadas no site do Santa Helena vinculado ao projeto anterior `pdflab`.
+O ZIP `fotos_laboratorio_santa_helena.zip` foi examinado, mas as fotos com painel de marca exibem **Laboratório Brandão**. Não foram atribuídas ao Laboratório Santa Helena na página. A marca foi identificada no site do Santa Helena vinculado ao projeto anterior `pdflab`.
 
 ## Pendências comerciais
 
@@ -64,5 +63,5 @@ Deixe ambos **desmarcados por padrão** no checkout. O produto principal custa R
 
 O Meta Pixel `2202477087281618` envia `PageView` ao carregar a página, `ViewContent` ao apresentar a oferta e `InitiateCheckout` quando alguém clica em um CTA com checkout válido. O código continua emitindo eventos locais `hemograma:analytics` para `offer_view`, `cta_click` (com posição) e `preview_open` (com página e tema). Não há evento `Purchase` na landing page: a confirmação de compra pertence ao checkout. Os parâmetros configurados para `ViewContent` e `InitiateCheckout` contêm apenas o identificador do produto, preço e moeda.
 
-Execute `npm run test:smoke` com o servidor em `http://localhost:4174/`. Esse teste verifica os quatro destinos da Kiwify, largura, imagens, primeira tela de 390 px, modal, foco, FAQ, barra fixa e UTMs em sete larguras. Execute `npm run test:pixel` para verificar os eventos do Meta Pixel.
+Execute `npm run test:smoke` com o servidor em `http://localhost:4174/`. Esse teste verifica a ordem das seções, o link para as amostras, os quatro destinos da Kiwify, largura, imagens, primeira tela de 390 px, modal, foco, FAQ, barra fixa e UTMs em sete larguras. Execute `npm run test:pixel` para verificar os eventos do Meta Pixel.
 

@@ -55,6 +55,11 @@ try {
         `Imagens quebradas em ${width}px: ${brokenImages.join(", ")}`,
       );
     if (width === 390) {
+      const sectionOrder = await page.locator("main > section").evaluateAll((sections) =>
+        sections.map((section) => section.classList[0]),
+      );
+      if (sectionOrder.join(",") !== "hero,previews,difficulty,proof,offer,faq")
+        throw new Error(`Ordem das seções incorreta: ${sectionOrder.join(",")}`);
       const cta = page.locator(".hero .buy-button");
       const box = await cta.boundingBox();
       if (!box || box.y + box.height > 844)
@@ -69,8 +74,12 @@ try {
       )
         throw new Error(`UTMs incorretas: ${href}`);
       await page.screenshot({ path: ".work/validated-mobile.png" });
+      await page.getByRole("link", { name: "Ver páginas do e-book" }).click();
+      await page.waitForFunction(() =>
+        location.hash === "#previews" && document.querySelector("#previews").getBoundingClientRect().top < innerHeight / 2,
+      );
       const opener = page
-        .getByRole("button", { name: /ampliar página/i })
+        .getByRole("button", { name: /abrir página de exemplo/i })
         .first();
       await opener.click();
       const dialog = page.getByRole("dialog");

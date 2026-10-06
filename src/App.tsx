@@ -33,8 +33,8 @@ const faqs = [
     "Para estudantes de Biomedicina, Farmácia e cursos técnicos em Análises Clínicas, além de quem já tem base nessas áreas e quer revisar os fundamentos do hemograma de adultos.",
   ],
   [
-    "Preciso estar começando um estágio?",
-    "Não. Você pode usar o e-book para estudar ou revisar o tema no seu próprio ritmo.",
+    "Consigo estudar pelo celular?",
+    "Sim. O material é um PDF e pode ser aberto no celular, tablet ou computador. No celular, você pode ampliar as páginas para ler os textos e observar os diagramas.",
   ],
   [
     "É um curso em vídeo ou um PDF?",
@@ -225,26 +225,32 @@ export function App() {
       <main>
         <section className="hero shell" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="eyebrow">Hemograma Descomplicado · e-book PDF</p>
-            <h1 id="hero-title">
-              Chega de travar no hemograma.
-            </h1>
+            <p className="eyebrow">
+              Para estudantes de Biomedicina, Farmácia e Análises Clínicas
+            </p>
+            <h1 id="hero-title">Chega de travar no hemograma.</h1>
             <p className="hero-subtitle">
-              Entenda o que os números mostram. Um caminho visual para conectar
-              Hb, VCM, RDW, leucócitos e plaquetas — e construir uma leitura
-              organizada do exame de adultos.
+              Você conhece as siglas, mas ainda se perde quando precisa juntar
+              as informações? Aprenda uma sequência para estudar o hemograma de
+              adultos, com explicações visuais, exemplos resolvidos e
+              exercícios comentados.
             </p>
             <ul className="hero-benefits">
-              <li>Saiba por onde começar, mesmo quando o exame parece confuso.</li>
-              <li>Veja como as medidas se relacionam em exemplos resolvidos.</li>
-              <li>Teste sua leitura com 12 desafios comentados.</li>
+              <li>Entenda como Hb, VCM e RDW se relacionam.</li>
+              <li>Organize seu estudo de hemácias, leucócitos e plaquetas.</li>
+              <li>Pratique com 12 desafios e confira o raciocínio de cada resposta.</li>
             </ul>
             <div className="hero-purchase">
               <p className="price">
                 <strong>{site.price}</strong> <span>pagamento único</span>
               </p>
               <BuyButton position="hero" />
-              <p className="microcopy">E-book PDF em português · 53 páginas · garantia de 7 dias</p>
+              <a className="preview-jump" href="#previews">
+                Ver páginas do e-book
+              </a>
+              <p className="microcopy">
+                PDF em português · 53 páginas · acesso após a aprovação do pagamento · garantia de 7 dias
+              </p>
               {!checkoutDestination(window.location.search) && (
                 <p className="checkout-note" id="checkout-pending">
                   Compra indisponível até a configuração do checkout.
@@ -284,13 +290,61 @@ export function App() {
         </section>
 
         <section
+          className="previews section-pad shell"
+          id="previews"
+          aria-labelledby="previews-title"
+        >
+          <div className="section-heading">
+            <div>
+              <p className="section-kicker">Por dentro do PDF</p>
+              <h2 id="previews-title">Veja como o material explica</h2>
+            </div>
+            <p>
+              Estas são três páginas reais do e-book. Abra as amostras para
+              conhecer as explicações, os diagramas e um exemplo resolvido
+              antes de comprar.
+            </p>
+          </div>
+          <div className="preview-grid">
+            {previews.map((preview) => (
+              <article className="preview-card" key={preview.page}>
+                <div className="preview-image">
+                  <img
+                    src={preview.src}
+                    alt={`Amostra da página ${preview.page}: ${preview.title}`}
+                    width="1044"
+                    height="1500"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="preview-content">
+                  <span className="page-number">
+                    PÁGINA {String(preview.page).padStart(2, "0")}
+                  </span>
+                  <h3>{preview.title}</h3>
+                  <p>{preview.caption}</p>
+                  <button
+                    type="button"
+                    onClick={(event) =>
+                      openPreview(preview, event.currentTarget)
+                    }
+                  >
+                    Abrir página de exemplo <span aria-hidden="true">↗</span>
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
           className="difficulty section-pad"
           aria-labelledby="difficulty-title"
         >
           <div className="shell narrow">
             <p className="section-kicker">Do número à leitura</p>
             <h2 id="difficulty-title">
-              Você reconhece as siglas. Mas, na hora de juntar tudo, trava?
+              Você reconhece as siglas, mas na hora de juntar tudo trava?
             </h2>
             <div className="difficulty-grid">
               <div>
@@ -323,91 +377,26 @@ export function App() {
           </div>
         </section>
 
-        <section
-          className="previews section-pad shell"
-          aria-labelledby="previews-title"
-        >
-          <div className="section-heading">
-            <div>
-              <p className="section-kicker">Por dentro do PDF</p>
-              <h2 id="previews-title">Veja as peças se encaixarem</h2>
-            </div>
-            <p>
-              Amplie três páginas reais e veja diagramas, contas e uma síntese
-              preenchida.
-            </p>
-          </div>
-          <div className="preview-grid">
-            {previews.map((preview) => (
-              <article className="preview-card" key={preview.page}>
-                <div className="preview-image">
-                  <img
-                    src={preview.src}
-                    alt={`Amostra da página ${preview.page}: ${preview.title}`}
-                    width="1044"
-                    height="1500"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="preview-content">
-                  <span className="page-number">
-                    PÁGINA {String(preview.page).padStart(2, "0")}
-                  </span>
-                  <h3>{preview.title}</h3>
-                  <p>{preview.caption}</p>
-                  <button
-                    type="button"
-                    onClick={(event) =>
-                      openPreview(preview, event.currentTarget)
-                    }
-                  >
-                    Ampliar página <span aria-hidden="true">↗</span>
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section
-          className="process-strip shell"
-          aria-label="Sequência de estudo"
-        >
-          <span>
-            01 <strong>Entenda a medida</strong>
-          </span>
-          <span>
-            02 <strong>Conecte os achados</strong>
-          </span>
-          <span>
-            03 <strong>Pratique a síntese</strong>
-          </span>
-        </section>
-
         <section className="proof section-pad" aria-labelledby="proof-title">
           <div className="shell proof-layout">
             <div>
-              <p className="section-kicker">Estudo com método</p>
-              <h2 id="proof-title">
-                Mais de 30 anos de experiência transformados em um caminho de estudo.
-              </h2>
+              <h2 id="proof-title">Estude com uma sequência clara</h2>
               <p>
-                O e-book foi criado por um profissional de Análises Clínicas com
-                mais de 30 anos de experiência, com o propósito de ajudar
-                estudantes a entender o hemograma com mais clareza.
+                Paulo Brandão tem mais de 30 anos de experiência em Análises
+                Clínicas.
               </p>
               <p>
-                Primeiro, cada medida responde a uma pergunta concreta. Depois,
-                você confere as contas, percorre as três séries e acompanha
-                exemplos fictícios até a síntese.
+                No Hemograma Descomplicado, o estudo segue uma sequência:
+                entender cada medida, relacionar as informações e acompanhar
+                exemplos até uma síntese organizada.
               </p>
               <p>
-                Assim, fica mais fácil descrever o que os dados mostram e
-                reconhecer o que ainda falta para entender um caso real.
+                Depois, você pratica com 12 desafios comentados e compara seu
+                raciocínio com as explicações do material.
               </p>
               <BuyButton position="after_proof" />
             </div>
-            <div className="proof-photos">
+            <div className="proof-portrait">
               <figure>
                 <img
                   src="/images/paulo-brandao.webp"
@@ -419,19 +408,6 @@ export function App() {
                 <figcaption>
                   <strong>Paulo Brandão</strong>
                   <span>Mais de 30 anos em Análises Clínicas. Criou este material para ajudar estudantes.</span>
-                </figcaption>
-              </figure>
-              <figure>
-                <img
-                  src="/images/santa-helena-recepcao.webp"
-                  alt="Recepção do Laboratório Santa Helena"
-                  width="1080"
-                  height="720"
-                  loading="lazy"
-                />
-                <figcaption>
-                  <strong>Laboratório Santa Helena</strong>
-                  <span>Um dos espaços do Laboratório Santa Helena.</span>
                 </figcaption>
               </figure>
             </div>
@@ -454,23 +430,16 @@ export function App() {
             </div>
             <div className="offer-content">
               <p className="section-kicker">O que você recebe</p>
-              <h2 id="offer-title">Hemograma Descomplicado</h2>
+              <h2 id="offer-title">O que está incluído nos R$37</h2>
               <p className="offer-intro">
-                Abra, entenda, calcule, pratique e confira: um PDF que guia seu
-                estudo do primeiro número à síntese.
+                Hemograma Descomplicado — e-book em PDF com 53 páginas.
               </p>
               <ul className="offer-list">
-                <li>Diagramas que mostram o que cada medida representa.</li>
-                <li>Exemplos resolvidos com o raciocínio à vista.</li>
-                <li>
-                  12 desafios comentados para testar e corrigir sua leitura.
-                </li>
-                <li>
-                  Ficha de leitura e glossário para retomar sem se perder.
-                </li>
-                <li>
-                  Índice clicável para encontrar sua dúvida em poucos toques.
-                </li>
+                <li>Explicações ilustradas sobre hemácias, leucócitos e plaquetas.</li>
+                <li>Exemplos resolvidos com o raciocínio explicado.</li>
+                <li>12 desafios com respostas comentadas.</li>
+                <li>Ficha de leitura e glossário para revisão.</li>
+                <li>Índice clicável para encontrar os assuntos.</li>
               </ul>
               <p className="offer-price">
                 <strong>{site.price}</strong>
@@ -478,11 +447,12 @@ export function App() {
               </p>
               <BuyButton position="offer" />
               <p className="guarantee-note">
-                <strong>Garantia de 7 dias</strong> para você conhecer o material com tranquilidade.
+                Você recebe acesso ao PDF após a aprovação do pagamento e tem
+                garantia de 7 dias.
               </p>
               <p className="microcopy">
-                Somente o e-book principal. Materiais adicionais são opcionais e
-                pagos à parte.
+                Os materiais complementares oferecidos no checkout são opcionais
+                e pagos à parte.
               </p>
             </div>
           </div>

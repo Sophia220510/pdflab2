@@ -232,6 +232,9 @@ export function App() {
               <li>Organize seu estudo de hemácias, leucócitos e plaquetas.</li>
               <li>Pratique com 12 desafios e confira o raciocínio de cada resposta.</li>
             </ul>
+            <p className="hero-callout">
+              Compre agora e aprenda a evitar erros na leitura do hemograma.
+            </p>
             <div className="hero-purchase">
               <p className="price">
                 <strong>{site.price}</strong> <span>pagamento único</span>

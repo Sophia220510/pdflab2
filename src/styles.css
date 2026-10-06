@@ -171,6 +171,14 @@ ul {
   color: #c34857;
   font-weight: 900;
 }
+.hero-callout {
+  margin: 0 0 18px;
+  padding-left: 13px;
+  border-left: 4px solid #bd3e50;
+  color: #9c2c3d;
+  font-weight: 800;
+  line-height: 1.35;
+}
 .price {
   display: flex;
   gap: 14px;

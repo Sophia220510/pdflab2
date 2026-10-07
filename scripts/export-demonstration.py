@@ -45,3 +45,16 @@ export("desafio-05.webp", 45, (36, 132, 420, 198), 3)
 export("resolucao-05.webp", 48, (36, 93, 420, 184), 3)
 export("pagina-45.webp", 45, None, 2.3)
 export("pagina-48.webp", 48, None, 2.3)
+export("indices-hemacias.webp", 18, (32, 148, 422, 375), 3)
+export("ficha-leitura.webp", 42, (32, 145, 422, 485), 3)
+export("desafio-09.webp", 46, (32, 132, 422, 195), 3)
+export("resolucao-09.webp", 49, (32, 93, 422, 182), 3)
+for name, page in [
+    ("pagina-03.webp", 3),
+    ("pagina-18.webp", 18),
+    ("pagina-42.webp", 42),
+    ("pagina-43.webp", 43),
+    ("pagina-46.webp", 46),
+    ("pagina-49.webp", 49),
+]:
+    export(name, page, None, 2.3)

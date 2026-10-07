@@ -8,15 +8,35 @@ const comparisonPreview: Preview = {
   title: "Percentual pode enganar",
   page: 28,
 };
+const indicesPreview: Preview = {
+  src: "/images/pagina-18.webp",
+  title: "Índices das hemácias",
+  page: 18,
+};
+const worksheetPreview: Preview = {
+  src: "/images/pagina-42.webp",
+  title: "Ficha de leitura",
+  page: 42,
+};
+const glossaryPreview: Preview = {
+  src: "/images/pagina-43.webp",
+  title: "Glossário para revisão",
+  page: 43,
+};
+const indexPreview: Preview = {
+  src: "/images/pagina-03.webp",
+  title: "Índice do e-book",
+  page: 3,
+};
 const challengePreview: Preview = {
-  src: "/images/pagina-45.webp",
-  title: "Desafio 05: resolva o diferencial",
-  page: 45,
+  src: "/images/pagina-46.webp",
+  title: "Desafio 09: leia a observação",
+  page: 46,
 };
 const solutionPreview: Preview = {
-  src: "/images/pagina-48.webp",
-  title: "Resolução 05: confira o raciocínio",
-  page: 48,
+  src: "/images/pagina-49.webp",
+  title: "Resolução 09: confira o raciocínio",
+  page: 49,
 };
 
 const faqs = [
@@ -116,6 +136,7 @@ function PreviewModal({
   onClose: () => void;
 }) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const [zoomed, setZoomed] = useState(false);
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -160,16 +181,21 @@ function PreviewModal({
       >
         <div className="modal-toolbar">
           <span>Página {preview.page} de 53 · amostra real do PDF</span>
+          <button type="button" aria-pressed={zoomed} onClick={() => setZoomed(!zoomed)}>
+            {zoomed ? "Ajustar à tela" : "Ampliar página"}
+          </button>
           <button type="button" onClick={onClose} aria-label="Fechar prévia">
             Fechar <span aria-hidden="true">×</span>
           </button>
         </div>
-        <img
-          src={preview.src}
-          alt={`Página ${preview.page} do e-book: ${preview.title}`}
-          width="1044"
-          height="1500"
-        />
+        <div className={`modal-page ${zoomed ? "is-zoomed" : ""}`}>
+          <img
+            src={preview.src}
+            alt={`Página ${preview.page} do e-book: ${preview.title}`}
+            width="1044"
+            height="1500"
+          />
+        </div>
       </div>
     </div>
   );
@@ -247,12 +273,13 @@ export function App() {
             <h1 id="hero-title">Chega de travar no hemograma.</h1>
             <p className="hero-product">Hemograma Descomplicado</p>
             <p className="hero-subtitle">
-              Aprenda uma sequência clara para estudar o hemograma de adultos:
-              explicações visuais, exemplos resolvidos e exercícios comentados.
+              Aprenda a relacionar os dados do hemograma de adultos e organizar
+              seu raciocínio nos exercícios. Estude com explicações ilustradas,
+              acompanhe exemplos resolvidos e confira cada etapa nas respostas comentadas.
             </p>
             <div className="hero-badges">
               <span>PDF digital · 53 páginas</span>
-              <span>12 desafios comentados</span>
+              <span>Explicações ilustradas · exemplos resolvidos</span>
             </div>
             <div className="hero-purchase">
               <p className="price">
@@ -263,9 +290,9 @@ export function App() {
                 Compre agora e aprenda a evitar erros na leitura do hemograma.
               </p>
               <ul className="hero-benefits">
-                <li>Entenda como Hb, VCM e RDW se relacionam.</li>
-                <li>Organize seu estudo de hemácias, leucócitos e plaquetas.</li>
-                <li>Pratique com 12 desafios e confira o raciocínio de cada resposta.</li>
+                <li>Relacione os índices das hemácias, como Hb, VCM e RDW.</li>
+                <li>Distinga porcentagens de contagens absolutas de leucócitos.</li>
+                <li>Organize uma síntese de estudo com a ficha de leitura.</li>
               </ul>
               <p className="microcopy">
                 Acesso após a aprovação do pagamento · garantia de 7 dias
@@ -287,7 +314,7 @@ export function App() {
                 />
                 <span>
                   <strong>Paulo Brandão</strong>
-                  <small>Mais de 30 anos em Análises Clínicas · criou este e-book para ajudar estudantes</small>
+                  <small>Farmacêutico-Bioquímico · Especialista TEAC/SBAC · mais de 30 anos em Análises Clínicas</small>
                 </span>
               </div>
             </div>
@@ -306,9 +333,50 @@ export function App() {
               />
               <div className="visual-caption">
                 <span className="caption-bar" />
-                53 páginas ilustradas · 12 desafios comentados
+                Exemplos, ficha de leitura e glossário
               </div>
             </div>
+          </div>
+        </section>
+
+        <section
+          className="comparison-demo section-pad shell"
+          id="previews"
+          aria-labelledby="comparison-title"
+        >
+          <div className="demo-heading">
+            <p className="section-kicker">Páginas reais do e-book</p>
+            <h2 id="comparison-title">Veja como o material explica</h2>
+            <p>
+              Três amostras para você conhecer as explicações, acompanhar uma
+              conta e ver como organizar sua própria leitura.
+            </p>
+          </div>
+          <div className="sample-grid">
+            <article className="sample-card">
+              <span className="page-number">01 · HEMÁCIAS</span>
+              <img src="/images/indices-hemacias.webp" alt="Trecho da página 18 com as fórmulas de VCM, HCM e CHCM e um exemplo numérico" width="1170" height="681" loading="lazy" />
+              <h3>Relacione os índices</h3>
+              <p>Veja as fórmulas de VCM, HCM e CHCM aplicadas aos dados de um exemplo resolvido.</p>
+              <button className="sample-button" type="button" onClick={(event) => openPreview(indicesPreview, event.currentTarget)}>Abrir página de hemácias <span aria-hidden="true">↗</span></button>
+            </article>
+            <article className="sample-card">
+              <span className="page-number">02 · LEUCÓCITOS</span>
+              <div className="comparison-pair">
+                <img src="/images/percentual-60.webp" alt="3.000 leucócitos por microlitro: 60% de linfócitos são 1.800 por microlitro" width="555" height="360" loading="lazy" />
+                <img src="/images/percentual-30.webp" alt="12.000 leucócitos por microlitro: 30% de linfócitos são 3.600 por microlitro" width="555" height="360" loading="lazy" />
+              </div>
+              <h3>Percentual pode enganar</h3>
+              <p>Compare 60% de 3.000 com 30% de 12.000 leucócitos/µL. A porcentagem maior representa menos células neste exemplo.</p>
+              <button className="sample-button" type="button" onClick={(event) => openPreview(comparisonPreview, event.currentTarget)}>Abrir página de leucócitos <span aria-hidden="true">↗</span></button>
+            </article>
+            <article className="sample-card">
+              <span className="page-number">03 · SUA SÍNTESE</span>
+              <img src="/images/ficha-leitura.webp" alt="Trecho da ficha de leitura com campos para hemácias, leucócitos, plaquetas e síntese" width="1170" height="1020" loading="lazy" />
+              <h3>Organize sua leitura</h3>
+              <p>Use a ficha para anotar as três séries, destacar um achado e escrever o que ainda precisa revisar.</p>
+              <button className="sample-button" type="button" onClick={(event) => openPreview(worksheetPreview, event.currentTarget)}>Abrir ficha de leitura <span aria-hidden="true">↗</span></button>
+            </article>
           </div>
         </section>
 
@@ -353,60 +421,12 @@ export function App() {
         </section>
 
         <section
-          className="comparison-demo section-pad shell"
-          id="previews"
-          aria-labelledby="comparison-title"
-        >
-          <div className="demo-heading">
-            <p className="section-kicker">Página 28 do e-book</p>
-            <h2 id="comparison-title">Entenda a relação entre os números</h2>
-            <p>
-              Uma porcentagem maior nem sempre representa uma contagem maior.
-              Nesta página do e-book, você acompanha a comparação e entende
-              como fazer a conta.
-            </p>
-          </div>
-          <div className="comparison-grid">
-            <img
-              src="/images/percentual-60.webp"
-              alt="3.000 leucócitos por microlitro: 60% de linfócitos são 1.800 linfócitos por microlitro"
-              width="555"
-              height="360"
-              loading="lazy"
-            />
-            <img
-              src="/images/percentual-30.webp"
-              alt="12.000 leucócitos por microlitro: 30% de linfócitos são 3.600 linfócitos por microlitro"
-              width="555"
-              height="360"
-              loading="lazy"
-            />
-          </div>
-          <div className="sample-explainer">
-            <strong>O que esta página ensina</strong>
-            <p>
-              Compare 60% de 3.000 com 30% de 12.000 leucócitos/µL. Ao fazer a
-              conta, você vê por que a porcentagem isolada pode levar a uma
-              conclusão errada.
-            </p>
-          </div>
-          <p className="demo-prompt">Abra a amostra e veja como o material explica.</p>
-          <button
-            className="sample-button"
-            type="button"
-            onClick={(event) => openPreview(comparisonPreview, event.currentTarget)}
-          >
-            Abrir página real do e-book <span aria-hidden="true">↗</span>
-          </button>
-        </section>
-
-        <section
           className="exercise-demo section-pad"
           aria-labelledby="exercise-title"
         >
           <div className="shell">
             <div className="demo-heading">
-              <p className="section-kicker">Desafio 05 · páginas 45 e 48</p>
+              <p className="section-kicker">Desafio 09 · páginas 46 e 49</p>
               <h2 id="exercise-title">Leia, tente resolver e confira o raciocínio</h2>
               <p>
                 Os 12 desafios do e-book têm respostas comentadas para você
@@ -417,17 +437,16 @@ export function App() {
               <article className="exercise-card">
                 <span className="page-number">01 · TENTE RESOLVER</span>
                 <img
-                  src="/images/desafio-05.webp"
-                  alt="Desafio 05: leucócitos 3.000 por microlitro, linfócitos 60% e neutrófilos 30%. Calcule os absolutos."
-                  width="1152"
-                  height="198"
+                  src="/images/desafio-09.webp"
+                  alt="Desafio 09: contagem de plaquetas de 62 mil por microlitro e observação de agregados na lâmina"
+                  width="1170"
+                  height="189"
                   loading="lazy"
                 />
                 <div className="exercise-transcript">
-                  <strong>05 | Resolva o diferencial</strong>
+                  <strong>09 | Leia a observação</strong>
                   <p>
-                    Leucócitos 3.000/µL; linfócitos 60%; neutrófilos 30%.
-                    Calcule os absolutos.
+                    Plaquetas 62.000/µL e agregados na lâmina. O que essa observação muda na interpretação da contagem?
                   </p>
                 </div>
                 <button
@@ -441,18 +460,17 @@ export function App() {
               <article className="exercise-card">
                 <span className="page-number">02 · CONFIRA A RESPOSTA</span>
                 <img
-                  src="/images/resolucao-05.webp"
-                  alt="Resolução 05: 1.800 linfócitos e 900 neutrófilos por microlitro, com explicação sobre contagem absoluta."
-                  width="1152"
-                  height="273"
+                  src="/images/resolucao-09.webp"
+                  alt="Resolução 09: agregados podem comprometer a contagem automatizada de plaquetas; é preciso avaliação técnica"
+                  width="1170"
+                  height="267"
                   loading="lazy"
                 />
                 <div className="exercise-transcript">
-                  <strong>05 | Resolva o diferencial</strong>
+                  <strong>09 | Leia a observação</strong>
                   <p>
-                    Linfócitos = 1.800/µL; neutrófilos = 900/µL. A porcentagem
-                    alta de linfócitos pode decorrer da redução de outra população.
-                    Compare cada absoluto ao seu intervalo.
+                    Os agregados podem comprometer a contagem automatizada.
+                    A resolução explica por que o número pede avaliação técnica antes da conclusão.
                   </p>
                 </div>
                 <button
@@ -465,9 +483,29 @@ export function App() {
               </article>
             </div>
             <p className="exercise-how-to">
-              Como usar no estudo: faça a conta antes de abrir a resposta;
-              depois, compare cada etapa com a resolução comentada.
+              Como usar no estudo: responda antes de abrir a resolução; depois,
+              compare sua justificativa com o raciocínio comentado.
             </p>
+          </div>
+        </section>
+
+        <section className="study-flow section-pad" aria-labelledby="study-flow-title">
+          <div className="shell">
+            <p className="section-kicker">Uma rotina possível de estudo</p>
+            <h2 id="study-flow-title">Da explicação à sua resposta</h2>
+            <ol className="study-steps">
+              <li><strong>Leia a explicação</strong><span>Entenda o que cada medida mostra.</span></li>
+              <li><strong>Acompanhe um exemplo</strong><span>Veja como os números são relacionados.</span></li>
+              <li><strong>Tente resolver</strong><span>Use o desafio antes de olhar o gabarito.</span></li>
+              <li><strong>Confira e revise</strong><span>Compare sua resposta e anote o ponto a retomar.</span></li>
+            </ol>
+            <div className="study-tools">
+              <p>A ficha de leitura ajuda a organizar a síntese. Para voltar a um conceito, consulte o glossário ou encontre o assunto no índice clicável do PDF.</p>
+              <div>
+                <button type="button" onClick={(event) => openPreview(glossaryPreview, event.currentTarget)}>Ver glossário ↗</button>
+                <button type="button" onClick={(event) => openPreview(indexPreview, event.currentTarget)}>Ver índice ↗</button>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -475,19 +513,15 @@ export function App() {
           <div className="shell proof-layout">
             <div>
               <p className="section-kicker">Quem está por trás do material</p>
-              <h2 id="proof-title">Experiência de laboratório a serviço do seu estudo</h2>
+              <h2 id="proof-title">Paulo Brandão: experiência aplicada ao ensino</h2>
               <p>
-                Paulo Brandão tem mais de 30 anos de experiência em Análises
-                Clínicas.
+                Paulo é Farmacêutico-Bioquímico, formado pela Universidade São Francisco, e tem título de Especialista em Análises Clínicas (TEAC/SBAC).
               </p>
               <p>
-                No Hemograma Descomplicado, o estudo segue uma sequência:
-                entender cada medida, relacionar as informações e acompanhar
-                exemplos até uma síntese organizada.
+                Com mais de 30 anos de experiência na área, atua como responsável técnico no Laboratório Santa Helena e leciona em cursos de capacitação e pós-graduação.
               </p>
               <p>
-                Depois, você pratica com 12 desafios comentados e compara seu
-                raciocínio com as explicações do material.
+                Criou este e-book para ajudar estudantes a acompanhar uma sequência de leitura e a conferir o próprio raciocínio nos exemplos e exercícios.
               </p>
               <div className="proof-links">
                 <a href="https://laboratoriosantahelena.vercel.app/paulo-brandao" target="_blank" rel="noopener noreferrer">
@@ -574,8 +608,8 @@ export function App() {
               </p>
               <BuyButton position="offer" />
               <p className="guarantee-note">
-                Você recebe acesso ao PDF após a aprovação do pagamento e tem
-                garantia de 7 dias.
+                Após a aprovação do pagamento, a Kiwify envia ao e-mail da compra
+                o botão de acesso ao PDF. Sua compra tem garantia de 7 dias.
               </p>
               <p className="microcopy">
                 Os materiais complementares oferecidos no checkout são opcionais

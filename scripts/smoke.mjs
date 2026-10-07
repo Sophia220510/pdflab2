@@ -6,7 +6,7 @@ try {
   for (const width of [320, 360, 375, 390, 430, 768, 1280]) {
     const page = await browser.newPage({ viewport: { width, height: 844 } });
     await page.goto(
-      `${base}?utm_source=anuncio&utm_campaign=hemograma&email=privado`,
+      `${base}?utm_source=anuncio&utm_campaign=hemograma&utm_content=video%2Fpagina-28%7Cfeed&email=privado`,
       { waitUntil: "networkidle" },
     );
     const dimensions = await page.evaluate(() => ({
@@ -70,8 +70,12 @@ try {
       const sectionOrder = await page.locator("main > section").evaluateAll((sections) =>
         sections.map((section) => section.classList[0]),
       );
-      if (sectionOrder.join(",") !== "hero,difficulty,comparison-demo,exercise-demo,proof,reviews,offer,faq,final-cta")
+      if (sectionOrder.join(",") !== "hero,comparison-demo,difficulty,exercise-demo,study-flow,proof,reviews,offer,faq,final-cta")
         throw new Error(`Ordem das seções incorreta: ${sectionOrder.join(",")}`);
+      if ((await page.locator(".sample-card").count()) !== 3)
+        throw new Error("As três amostras distintas estão ausentes");
+      if (!(await page.locator(".brand-lockup strong").isVisible()))
+        throw new Error("Nome do laboratório oculto no celular");
       if ((await page.locator(".review-card").count()) !== 2)
         throw new Error("Depoimentos de leitores convidados ausentes");
       if ((await page.locator('a[href="mailto:laboratoriosantahelena81@gmail.com"]').count()) !== 2)
@@ -86,6 +90,7 @@ try {
       if (
         url.searchParams.get("utm_source") !== "anuncio" ||
         url.searchParams.get("utm_campaign") !== "hemograma" ||
+        url.searchParams.get("utm_content") !== "video/pagina-28|feed" ||
         url.searchParams.has("email")
       )
         throw new Error(`UTMs incorretas: ${href}`);
@@ -97,22 +102,29 @@ try {
       await page.locator("#previews").screenshot({ path: ".work/validated-comparison-mobile.png" });
       await page.locator(".exercise-demo").screenshot({ path: ".work/validated-exercise-mobile.png" });
       const opener = page
-        .getByRole("button", { name: /abrir página real do e-book/i });
+        .getByRole("button", { name: /abrir página de leucócitos/i });
       await opener.click();
       const dialog = page.getByRole("dialog");
       await dialog.waitFor();
       if (!(await dialog.locator("img").getAttribute("src"))?.endsWith("percentual-absoluto.webp"))
         throw new Error("Amostra não abriu a página 28 inteira");
+      await dialog.getByRole("button", { name: "Ampliar página" }).click();
+      if (!(await dialog.getByRole("button", { name: "Ajustar à tela" }).getAttribute("aria-pressed"))?.includes("true"))
+        throw new Error("Zoom da amostra não ativou");
       if (await page.locator(".sticky-purchase").count())
         throw new Error("Barra fixa visível sobre o modal");
       await page.keyboard.press("Escape");
       if (await dialog.count()) throw new Error("Modal não fechou com Escape");
       await page.waitForFunction(
-        () => document.activeElement === document.querySelector(".comparison-demo button"),
+        () => document.activeElement === document.querySelector(".sample-card:nth-child(2) button"),
       );
       for (const [label, filename] of [
-        ["Abrir página do desafio", "pagina-45.webp"],
-        ["Abrir página da resolução", "pagina-48.webp"],
+        ["Abrir página de hemácias", "pagina-18.webp"],
+        ["Abrir ficha de leitura", "pagina-42.webp"],
+        ["Abrir página do desafio", "pagina-46.webp"],
+        ["Abrir página da resolução", "pagina-49.webp"],
+        ["Ver glossário", "pagina-43.webp"],
+        ["Ver índice", "pagina-03.webp"],
       ]) {
         await page.getByRole("button", { name: new RegExp(label, "i") }).click();
         await dialog.waitFor();

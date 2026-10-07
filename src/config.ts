@@ -30,7 +30,7 @@ export function checkoutDestination(search: string): string | null {
     const incoming = new URLSearchParams(search);
     for (const key of site.allowedTrackingParams) {
       const value = incoming.get(key);
-      if (value && value.length <= 120 && /^[\p{L}\p{N}_. -]+$/u.test(value)) {
+      if (value && value.length <= 120 && /^[\p{L}\p{N}_.~ +/|:-]+$/u.test(value)) {
         destination.searchParams.set(key, value);
       }
     }

@@ -919,6 +919,209 @@ ul {
     font-size: 0.7rem;
   }
 }
+
+.sample-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.sample-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 13px 28px #2c151a14;
+}
+.sample-card > img,
+.comparison-pair {
+  width: 100%;
+  height: 190px;
+  margin-top: 14px;
+  border-radius: 8px;
+  background: var(--surface);
+}
+.sample-card > img {
+  object-fit: contain;
+}
+.comparison-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 4px;
+  padding: 5px;
+}
+.comparison-pair img {
+  width: 100%;
+  height: auto;
+}
+.sample-card h3 {
+  margin: 18px 0 7px;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  color: var(--deep);
+}
+.sample-card p {
+  flex: 1;
+  margin: 0 0 18px;
+  color: #686164;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+.sample-card .sample-button {
+  width: 100%;
+}
+.study-flow {
+  background: #fff;
+}
+.study-flow h2 {
+  max-width: 780px;
+}
+.study-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 30px 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: study-step;
+}
+.study-steps li {
+  counter-increment: study-step;
+  padding: 21px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.study-steps li::before {
+  content: "0" counter(study-step);
+  display: block;
+  margin-bottom: 14px;
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+.study-steps strong,
+.study-steps span {
+  display: block;
+}
+.study-steps strong {
+  color: var(--deep);
+  font-size: 0.88rem;
+}
+.study-steps span {
+  margin-top: 7px;
+  color: #686164;
+  font-size: 0.83rem;
+  line-height: 1.45;
+}
+.study-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 20px 24px;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: var(--surface);
+}
+.study-tools p {
+  max-width: 660px;
+  margin: 0;
+  color: #514a4c;
+  font-size: 0.87rem;
+}
+.study-tools div {
+  display: flex;
+  flex: none;
+  gap: 8px;
+}
+.study-tools button {
+  padding: 10px;
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--brand-wine);
+  font-weight: 800;
+  cursor: pointer;
+}
+.modal-page {
+  overflow: auto;
+}
+.modal-page.is-zoomed img {
+  max-width: none;
+  min-width: 760px;
+}
+@media (max-width: 900px) {
+  .sample-grid {
+    grid-template-columns: 1fr;
+  }
+  .sample-card > img,
+  .comparison-pair {
+    height: auto;
+    max-height: 330px;
+  }
+  .sample-card > img {
+    object-position: left center;
+  }
+  .comparison-pair img {
+    width: 100%;
+  }
+  .study-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .study-tools {
+    display: block;
+  }
+  .comparison-pair {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+  .study-tools div {
+    margin-top: 14px;
+  }
+  .sample-card > img {
+    max-height: none;
+  }
+  .comparison-pair {
+    max-height: none;
+  }
+  .modal-toolbar {
+    flex-wrap: wrap;
+  }
+  .modal-toolbar span:first-child {
+    width: 100%;
+  }
+}
+@media (max-width: 430px) {
+  .brand-lockup span {
+    display: flex;
+  }
+  .brand-lockup small,
+  .header-label {
+    display: none;
+  }
+  .brand-lockup strong {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+  .header-actions {
+    flex: none;
+  }
+  .study-steps {
+    grid-template-columns: 1fr;
+  }
+  .study-tools div {
+    flex-wrap: wrap;
+  }
+}
 @media (max-width: 355px) {
   .header-label {
     display: none;
@@ -1586,21 +1789,19 @@ p {
     min-height: 58px;
   }
   .brand-lockup span {
-    display: none;
+    display: flex;
   }
   .header-actions {
     flex: 1;
     justify-content: space-between;
     gap: 10px;
   }
-  .header-label,
+  .header-label {
+    display: none;
+  }
   .header-link {
     display: block;
     font-size: 0.7rem;
-  }
-  .header-label {
-    max-width: 175px;
-    text-align: left;
   }
   .hero h1 {
     font-size: 2.0475rem;

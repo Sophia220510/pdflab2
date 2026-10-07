@@ -2,7 +2,9 @@ export const site = {
   product: "Hemograma Descomplicado",
   price: "R$37,00",
   checkoutUrl: "https://pay.kiwify.com.br/ynrSMcQ",
-  supportEmail: import.meta.env.VITE_SUPPORT_EMAIL?.trim() || "",
+  supportEmail:
+    import.meta.env.VITE_SUPPORT_EMAIL?.trim() ||
+    "laboratoriosantahelena81@gmail.com",
   sellerName: import.meta.env.VITE_SELLER_NAME?.trim() || "",
   brandLogo:
     import.meta.env.VITE_BRAND_LOGO?.trim() || "/images/santa-helena-logo.svg",

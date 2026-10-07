@@ -62,6 +62,8 @@ try {
         throw new Error(`Ordem das seções incorreta: ${sectionOrder.join(",")}`);
       if ((await page.locator(".review-card").count()) !== 2)
         throw new Error("Depoimentos de leitores convidados ausentes");
+      if ((await page.locator('a[href="mailto:laboratoriosantahelena81@gmail.com"]').count()) !== 2)
+        throw new Error("E-mail de suporte ausente do FAQ ou rodapé");
       const cta = page.locator(".hero .buy-button");
       const box = await cta.boundingBox();
       if (!box || box.y + box.height > 844)

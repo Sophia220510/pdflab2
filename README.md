@@ -55,7 +55,7 @@ O vídeo vertical [ads/hemograma-demonstracao-vertical.mp4](ads/hemograma-demons
 
 1. Confirmar no painel da Kiwify se o PDF está publicado no produto e se o botão de acesso do e-mail leva diretamente ao conteúdo. A resposta da página usa o fluxo padrão de e-mail após pagamento aprovado descrito pela Kiwify.
 2. Confirmar meios de pagamento e quais UTMs são aceitas pela Kiwify.
-3. Confirmar responsável comercial, contato de suporte e eventual política adicional, quando disponíveis.
+3. Confirmar responsável comercial e eventual política adicional, quando disponíveis. O contato de suporte informado pelo responsável é `laboratoriosantahelena81@gmail.com` e aparece no FAQ e no rodapé.
 4. Confirmar qualquer credencial adicional de Paulo Brandão antes de inserir afirmações além dos mais de 30 anos de experiência informados pelo responsável.
 
 Os dois complementos aparecem no FAQ como opcionais e pagos à parte. Confirme no painel da Kiwify se os order bumps estão ativos e desmarcados por padrão; o texto abaixo está pronto para configurar no checkout.

@@ -578,6 +578,16 @@ export function App() {
                   <p>{answer}</p>
                 </details>
               ))}
+              <details>
+                <summary>
+                  Como falar com o suporte?
+                  <span aria-hidden="true">+</span>
+                </summary>
+                <p>
+                  Para dúvidas sobre o e-book ou o acesso, escreva para{" "}
+                  <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>.
+                </p>
+              </details>
             </div>
             <p className="education-note">
               Material educacional para estudo. A avaliação de um exame real

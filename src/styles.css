@@ -611,6 +611,12 @@ ul {
   color: #655a5d;
   max-width: 750px;
 }
+.faq details p a {
+  color: #8d2a3b;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  text-underline-offset: 3px;
+}
 .education-note {
   font-size: 0.83rem;
   color: #71676a;

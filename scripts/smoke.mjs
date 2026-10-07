@@ -18,7 +18,7 @@ try {
         `Rolagem horizontal em ${width}px: ${JSON.stringify(dimensions)}`,
       );
     const purchaseLinks = page.locator(".buy-button");
-    if ((await purchaseLinks.count()) !== 4)
+    if ((await purchaseLinks.count()) !== 5)
       throw new Error(`Número inesperado de botões de compra em ${width}px`);
     for (const href of await purchaseLinks.evaluateAll((links) =>
       links.map((link) => link.getAttribute("href")),
@@ -28,13 +28,25 @@ try {
         throw new Error(`Destino de compra incorreto em ${width}px: ${href}`);
     }
     const sticky = page.locator(".sticky-purchase .buy-button");
-    if (!(await sticky.isVisible()))
-      throw new Error(`Compra fixa ausente em ${width}px`);
     for (const offset of [0, 350, 1000, 2500]) {
       await page.evaluate((y) => window.scrollTo(0, y), offset);
-      const box = await sticky.boundingBox();
-      if (!box || box.y < 0 || box.y + box.height > 844)
-        throw new Error(`Compra fixa fora da tela em ${width}px, scroll ${offset}`);
+      await page.waitForTimeout(50);
+      const visibleMainCta = await page.locator("main .buy-button").evaluateAll((links) =>
+        links.some((link) => {
+          const rect = link.getBoundingClientRect();
+          return rect.top >= 0 && rect.bottom <= innerHeight;
+        }),
+      );
+      const stickyVisible = await sticky.isVisible();
+      if (!visibleMainCta && !stickyVisible)
+        throw new Error(`Nenhum botão de compra visível em ${width}px, scroll ${offset}`);
+      if (visibleMainCta && stickyVisible)
+        throw new Error(`Compra fixa duplicada em ${width}px, scroll ${offset}`);
+      if (stickyVisible) {
+        const box = await sticky.boundingBox();
+        if (!box || box.y < 0 || box.y + box.height > 844)
+          throw new Error(`Compra fixa fora da tela em ${width}px, scroll ${offset}`);
+      }
     }
     await page.evaluate(() => window.scrollTo(0, 0));
     const brokenImages = await page
@@ -58,7 +70,7 @@ try {
       const sectionOrder = await page.locator("main > section").evaluateAll((sections) =>
         sections.map((section) => section.classList[0]),
       );
-      if (sectionOrder.join(",") !== "hero,difficulty,comparison-demo,exercise-demo,proof,reviews,offer,faq")
+      if (sectionOrder.join(",") !== "hero,difficulty,comparison-demo,exercise-demo,proof,reviews,offer,faq,final-cta")
         throw new Error(`Ordem das seções incorreta: ${sectionOrder.join(",")}`);
       if ((await page.locator(".review-card").count()) !== 2)
         throw new Error("Depoimentos de leitores convidados ausentes");

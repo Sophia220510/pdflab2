@@ -177,6 +177,7 @@ function PreviewModal({
 
 export function App() {
   const [activePreview, setActivePreview] = useState<Preview | null>(null);
+  const [showStickyPurchase, setShowStickyPurchase] = useState(false);
   const opener = useRef<HTMLButtonElement | null>(null);
   const closePreview = useCallback(() => {
     setActivePreview(null);
@@ -187,6 +188,25 @@ export function App() {
     track("offer_view");
   }, []);
 
+  useEffect(() => {
+    const updateStickyPurchase = () => {
+      const visibleMainCta = Array.from(
+        document.querySelectorAll<HTMLElement>("main .buy-button"),
+      ).some((button) => {
+        const rect = button.getBoundingClientRect();
+        return rect.top >= 0 && rect.bottom <= window.innerHeight;
+      });
+      setShowStickyPurchase(!visibleMainCta);
+    };
+    updateStickyPurchase();
+    window.addEventListener("scroll", updateStickyPurchase, { passive: true });
+    window.addEventListener("resize", updateStickyPurchase);
+    return () => {
+      window.removeEventListener("scroll", updateStickyPurchase);
+      window.removeEventListener("resize", updateStickyPurchase);
+    };
+  }, []);
+
   const openPreview = (preview: Preview, button: HTMLButtonElement) => {
     opener.current = button;
     track("preview_open", { page: preview.page, topic: preview.title });
@@ -195,64 +215,64 @@ export function App() {
 
   return (
     <>
-      <header className="site-header shell">
-        <div className="brand-lockup">
-          <img
-            className="brand-logo"
-            src={site.brandLogo}
-            alt={`Símbolo do ${site.brandName}`}
-            width="44"
-            height="44"
-          />
-          <span>
-            <strong>{site.brandName}</strong>
-            <small>Análises Clínicas</small>
-          </span>
+      <header className="site-header">
+        <div className="shell header-inner">
+          <div className="brand-lockup">
+            <img
+              className="brand-logo"
+              src={site.brandLogo}
+              alt={`Símbolo do ${site.brandName}`}
+              width="44"
+              height="44"
+            />
+            <span>
+              <small>Laboratório</small>
+              <strong>Santa Helena</strong>
+            </span>
+          </div>
+          <div className="header-actions">
+            <span className="header-label">Mais de 30 anos em Análises Clínicas</span>
+            <a className="header-link" href="#previews">Ver conteúdo</a>
+          </div>
         </div>
-        <span className="header-label">
-          Material de estudo em Análises Clínicas
-        </span>
       </header>
 
       <main>
-        <section className="hero shell" aria-labelledby="hero-title">
-          <div className="hero-copy">
+        <section className="hero" aria-labelledby="hero-title">
+          <div className="shell hero-grid">
+            <div className="hero-copy">
             <p className="eyebrow">
               Para estudantes de Biomedicina, Farmácia e Análises Clínicas
             </p>
             <h1 id="hero-title">Chega de travar no hemograma.</h1>
+            <p className="hero-product">Hemograma Descomplicado</p>
             <p className="hero-subtitle">
               Aprenda uma sequência clara para estudar o hemograma de adultos:
               explicações visuais, exemplos resolvidos e exercícios comentados.
             </p>
-            <ul className="hero-benefits">
-              <li>Entenda como Hb, VCM e RDW se relacionam.</li>
-              <li>Organize seu estudo de hemácias, leucócitos e plaquetas.</li>
-              <li>Pratique com 12 desafios e confira o raciocínio de cada resposta.</li>
-            </ul>
-            <p className="hero-callout">
-              Compre agora e aprenda a evitar erros na leitura do hemograma.
-            </p>
+            <div className="hero-badges">
+              <span>PDF digital · 53 páginas</span>
+              <span>12 desafios comentados</span>
+            </div>
             <div className="hero-purchase">
-              <div className="purchase-summary">
-                <img
-                  className="hero-mobile-cover"
-                  src="/images/capa.webp"
-                  alt="Capa do e-book Hemograma Descomplicado"
-                  width="1044"
-                  height="1500"
-                />
-                <p className="price">
-                  <strong>{site.price}</strong> <span>pagamento único</span>
-                </p>
-              </div>
+              <p className="price">
+                <strong>{site.price}</strong> <span>pagamento único</span>
+              </p>
               <BuyButton position="hero" />
+              <p className="hero-callout">
+                Compre agora e aprenda a evitar erros na leitura do hemograma.
+              </p>
+              <ul className="hero-benefits">
+                <li>Entenda como Hb, VCM e RDW se relacionam.</li>
+                <li>Organize seu estudo de hemácias, leucócitos e plaquetas.</li>
+                <li>Pratique com 12 desafios e confira o raciocínio de cada resposta.</li>
+              </ul>
+              <p className="microcopy">
+                Acesso após a aprovação do pagamento · garantia de 7 dias
+              </p>
               <a className="preview-jump" href="#previews">
                 Ver páginas do e-book
               </a>
-              <p className="microcopy">
-                PDF em português · 53 páginas · acesso após a aprovação do pagamento · garantia de 7 dias
-              </p>
               {!checkoutDestination(window.location.search) && (
                 <p className="checkout-note" id="checkout-pending">
                   Compra indisponível até a configuração do checkout.
@@ -271,22 +291,23 @@ export function App() {
                 </span>
               </div>
             </div>
-          </div>
-          <div
-            className="hero-visual"
-            aria-label="Capa do e-book Hemograma Descomplicado"
-          >
-            <div className="book-backdrop" />
-            <img
-              src="/images/capa.webp"
-              alt="Capa do PDF Hemograma Descomplicado"
-              width="1044"
-              height="1500"
-              fetchPriority="high"
-            />
-            <div className="visual-caption">
-              <span className="caption-bar" />
-              53 páginas ilustradas · 12 desafios comentados
+            </div>
+            <div
+              className="hero-visual"
+              aria-label="Capa do e-book Hemograma Descomplicado"
+            >
+              <div className="book-backdrop" />
+              <img
+                src="/images/capa.webp"
+                alt="Capa do PDF Hemograma Descomplicado"
+                width="1044"
+                height="1500"
+                fetchPriority="high"
+              />
+              <div className="visual-caption">
+                <span className="caption-bar" />
+                53 páginas ilustradas · 12 desafios comentados
+              </div>
             </div>
           </div>
         </section>
@@ -521,10 +542,10 @@ export function App() {
         </section>
 
         <section
-          className="offer section-pad shell"
+          className="offer section-pad"
           aria-labelledby="offer-title"
         >
-          <div className="offer-card">
+          <div className="shell offer-card">
             <div className="offer-cover">
               <img
                 src="/images/capa.webp"
@@ -595,6 +616,17 @@ export function App() {
             </p>
           </div>
         </section>
+
+        <section className="final-cta section-pad" aria-labelledby="final-title">
+          <div className="shell final-inner">
+            <div>
+              <p className="section-kicker">Seu próximo passo</p>
+              <h2 id="final-title">Estude o hemograma com uma sequência clara.</h2>
+              <p>PDF em português · 53 páginas · R$37,00 · garantia de 7 dias</p>
+            </div>
+            <BuyButton position="final" />
+          </div>
+        </section>
       </main>
 
       <footer className="site-footer">
@@ -617,7 +649,11 @@ export function App() {
       </footer>
 
       {!activePreview && (
-        <div className="sticky-purchase">
+        <div
+          className={`sticky-purchase ${showStickyPurchase ? "is-visible" : ""}`}
+          aria-hidden={!showStickyPurchase}
+          inert={!showStickyPurchase}
+        >
           <div className="shell sticky-inner">
             <span>
               <strong>R$37</strong>

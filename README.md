@@ -2,7 +2,7 @@
 
 Landing page em React, TypeScript e Vite para o e-book **Hemograma Descomplicado**. Todos os botões de compra levam ao [checkout do produto na Kiwify](https://pay.kiwify.com.br/ynrSMcQ).
 
-A apresentação usa **Fraunces** nos títulos e **DM Sans** nos textos, inspirada na página [Primeiro Estágio](https://primeiroestagio.vercel.app/). As demonstrações com páginas reais, o checkout do hemograma, o Meta Pixel `2202477087281618` e o repasse de UTMs foram preservados.
+A apresentação adapta ao hemograma o sistema visual da página [Primeiro Estágio](https://primeiroestagio.vercel.app/): **Fraunces** nos títulos, **DM Sans** nos textos, branco `#fff`, bege `#f7f4f0`, vinho `#2c151a` e vermelho `#b32639`. As demonstrações com páginas reais, o checkout do hemograma, o Meta Pixel `2202477087281618` e o repasse de UTMs foram preservados.
 
 Os dois depoimentos exibidos foram fornecidos pelo responsável como relatos de pessoas convidadas a testar o e-book. A pontuação, a ortografia e a concordância foram corrigidas sem acrescentar resultados, nomes ou credenciais. As identificações permanecem anônimas até que cada pessoa autorize uma forma de apresentação.
 
@@ -72,5 +72,5 @@ Casos = prática. Bolso = consulta e revisão. Deixe ambos **desmarcados por pad
 
 O Meta Pixel `2202477087281618` envia `PageView` ao carregar a página, `ViewContent` ao apresentar a oferta e `InitiateCheckout` quando alguém clica em um CTA com checkout válido. O código continua emitindo eventos locais `hemograma:analytics` para `offer_view`, `cta_click` (com posição) e `preview_open` (com página e tema). Não há evento `Purchase` na landing page: a confirmação de compra pertence ao checkout. Os parâmetros configurados para `ViewContent` e `InitiateCheckout` contêm apenas o identificador do produto, preço e moeda.
 
-Execute `npm run test:smoke` com o servidor em `http://localhost:4174/`. Esse teste verifica a ordem das seções, o link para as amostras, os quatro destinos da Kiwify, largura, imagens, primeira tela de 390 px, modal, foco, FAQ, barra fixa e UTMs em sete larguras. Execute `npm run test:pixel` para verificar os eventos do Meta Pixel.
+Execute `npm run test:smoke` com o servidor em `http://localhost:4174/`. Esse teste verifica a ordem das seções, o link para as amostras, os cinco destinos da Kiwify, largura, imagens, primeira tela de 390 px, modal, foco, FAQ, botão flutuante contextual e UTMs em sete larguras. Execute `npm run test:pixel` para verificar os eventos do Meta Pixel.
 

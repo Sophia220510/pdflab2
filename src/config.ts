@@ -20,7 +20,7 @@ export const site = {
   ] as const,
 };
 
-export type CtaPosition = "hero" | "after_proof" | "offer" | "sticky";
+export type CtaPosition = "hero" | "after_proof" | "offer" | "final" | "sticky";
 
 export function checkoutDestination(search: string): string | null {
   if (!site.checkoutUrl) return null;

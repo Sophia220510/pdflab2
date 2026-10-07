@@ -2,6 +2,10 @@
 
 Landing page em React, TypeScript e Vite para o e-book **Hemograma Descomplicado**. Todos os botões de compra levam ao [checkout do produto na Kiwify](https://pay.kiwify.com.br/ynrSMcQ).
 
+A apresentação usa **Fraunces** nos títulos e **DM Sans** nos textos, inspirada na página [Primeiro Estágio](https://primeiroestagio.vercel.app/). As demonstrações com páginas reais, o checkout do hemograma, o Meta Pixel `2202477087281618` e o repasse de UTMs foram preservados.
+
+Os dois depoimentos exibidos foram fornecidos pelo responsável como relatos de pessoas convidadas a testar o e-book. A pontuação, a ortografia e a concordância foram corrigidas sem acrescentar resultados, nomes ou credenciais. As identificações permanecem anônimas até que cada pessoa autorize uma forma de apresentação.
+
 ## Executar
 
 ```bash

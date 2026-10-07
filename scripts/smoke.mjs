@@ -58,8 +58,10 @@ try {
       const sectionOrder = await page.locator("main > section").evaluateAll((sections) =>
         sections.map((section) => section.classList[0]),
       );
-      if (sectionOrder.join(",") !== "hero,comparison-demo,exercise-demo,difficulty,proof,offer,faq")
+      if (sectionOrder.join(",") !== "hero,difficulty,comparison-demo,exercise-demo,proof,reviews,offer,faq")
         throw new Error(`Ordem das seções incorreta: ${sectionOrder.join(",")}`);
+      if ((await page.locator(".review-card").count()) !== 2)
+        throw new Error("Depoimentos de leitores convidados ausentes");
       const cta = page.locator(".hero .buy-button");
       const box = await cta.boundingBox();
       if (!box || box.y + box.height > 844)

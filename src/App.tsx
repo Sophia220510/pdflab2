@@ -222,10 +222,8 @@ export function App() {
             </p>
             <h1 id="hero-title">Chega de travar no hemograma.</h1>
             <p className="hero-subtitle">
-              Você conhece as siglas, mas ainda se perde quando precisa juntar
-              as informações? Aprenda uma sequência para estudar o hemograma de
-              adultos, com explicações visuais, exemplos resolvidos e
-              exercícios comentados.
+              Aprenda uma sequência clara para estudar o hemograma de adultos:
+              explicações visuais, exemplos resolvidos e exercícios comentados.
             </p>
             <ul className="hero-benefits">
               <li>Entenda como Hb, VCM e RDW se relacionam.</li>
@@ -236,9 +234,18 @@ export function App() {
               Compre agora e aprenda a evitar erros na leitura do hemograma.
             </p>
             <div className="hero-purchase">
-              <p className="price">
-                <strong>{site.price}</strong> <span>pagamento único</span>
-              </p>
+              <div className="purchase-summary">
+                <img
+                  className="hero-mobile-cover"
+                  src="/images/capa.webp"
+                  alt="Capa do e-book Hemograma Descomplicado"
+                  width="1044"
+                  height="1500"
+                />
+                <p className="price">
+                  <strong>{site.price}</strong> <span>pagamento único</span>
+                </p>
+              </div>
               <BuyButton position="hero" />
               <a className="preview-jump" href="#previews">
                 Ver páginas do e-book
@@ -279,8 +286,48 @@ export function App() {
             />
             <div className="visual-caption">
               <span className="caption-bar" />
-              Amostra do material real
+              53 páginas ilustradas · 12 desafios comentados
             </div>
+          </div>
+        </section>
+
+        <section
+          className="difficulty section-pad"
+          aria-labelledby="difficulty-title"
+        >
+          <div className="shell narrow">
+            <p className="section-kicker">Do número à leitura</p>
+            <h2 id="difficulty-title">
+              Você reconhece as siglas, mas na hora de juntar tudo trava?
+            </h2>
+            <div className="difficulty-grid">
+              <div>
+                <span>01</span>
+                <p>
+                  VCM e RDW estão ali. O que essa combinação acrescenta à
+                  leitura das hemácias?
+                </p>
+              </div>
+              <div>
+                <span>02</span>
+                <p>
+                  Os linfócitos aparecem em 60%. Isso é aumento real ou só
+                  proporção?
+                </p>
+              </div>
+              <div>
+                <span>03</span>
+                <p>
+                  Surge uma alteração. Como escrever uma síntese sem adivinhar a
+                  causa?
+                </p>
+              </div>
+            </div>
+            <p className="section-summary">
+              O e-book transforma essas dúvidas em uma sequência concreta:
+              entender a medida, fazer a conta, conectar as três séries e
+              praticar a síntese.
+            </p>
           </div>
         </section>
 
@@ -313,6 +360,14 @@ export function App() {
               height="360"
               loading="lazy"
             />
+          </div>
+          <div className="sample-explainer">
+            <strong>O que esta página ensina</strong>
+            <p>
+              Compare 60% de 3.000 com 30% de 12.000 leucócitos/µL. Ao fazer a
+              conta, você vê por que a porcentagem isolada pode levar a uma
+              conclusão errada.
+            </p>
           </div>
           <p className="demo-prompt">Abra a amostra e veja como o material explica.</p>
           <button
@@ -388,45 +443,9 @@ export function App() {
                 </button>
               </article>
             </div>
-          </div>
-        </section>
-
-        <section
-          className="difficulty section-pad"
-          aria-labelledby="difficulty-title"
-        >
-          <div className="shell narrow">
-            <p className="section-kicker">Do número à leitura</p>
-            <h2 id="difficulty-title">
-              Você reconhece as siglas, mas na hora de juntar tudo trava?
-            </h2>
-            <div className="difficulty-grid">
-              <div>
-                <span>01</span>
-                <p>
-                  VCM e RDW estão ali. O que essa combinação acrescenta à
-                  leitura das hemácias?
-                </p>
-              </div>
-              <div>
-                <span>02</span>
-                <p>
-                  Os linfócitos aparecem em 60%. Isso é aumento real ou só
-                  proporção?
-                </p>
-              </div>
-              <div>
-                <span>03</span>
-                <p>
-                  Surge uma alteração. Como escrever uma síntese sem adivinhar a
-                  causa?
-                </p>
-              </div>
-            </div>
-            <p className="section-summary">
-              O e-book transforma essas dúvidas em uma sequência concreta:
-              entender a medida, fazer a conta, conectar as três séries e
-              praticar a síntese.
+            <p className="exercise-how-to">
+              Como usar no estudo: faça a conta antes de abrir a resposta;
+              depois, compare cada etapa com a resolução comentada.
             </p>
           </div>
         </section>
@@ -434,7 +453,8 @@ export function App() {
         <section className="proof section-pad" aria-labelledby="proof-title">
           <div className="shell proof-layout">
             <div>
-              <h2 id="proof-title">Estude com uma sequência clara</h2>
+              <p className="section-kicker">Quem está por trás do material</p>
+              <h2 id="proof-title">Experiência de laboratório a serviço do seu estudo</h2>
               <p>
                 Paulo Brandão tem mais de 30 anos de experiência em Análises
                 Clínicas.
@@ -448,6 +468,14 @@ export function App() {
                 Depois, você pratica com 12 desafios comentados e compara seu
                 raciocínio com as explicações do material.
               </p>
+              <div className="proof-links">
+                <a href="https://laboratoriosantahelena.vercel.app/paulo-brandao" target="_blank" rel="noopener noreferrer">
+                  Conheça a trajetória de Paulo ↗
+                </a>
+                <a href="https://laboratoriosantahelena.vercel.app/" target="_blank" rel="noopener noreferrer">
+                  Conheça o Laboratório Santa Helena ↗
+                </a>
+              </div>
               <BuyButton position="after_proof" />
             </div>
             <div className="proof-portrait">
@@ -463,6 +491,30 @@ export function App() {
                   <strong>Paulo Brandão</strong>
                   <span>Mais de 30 anos em Análises Clínicas. Criou este material para ajudar estudantes.</span>
                 </figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section className="reviews section-pad" aria-labelledby="reviews-title">
+          <div className="shell">
+            <p className="section-kicker">Opiniões de leitores convidados</p>
+            <h2 id="reviews-title">Relatos de quem leu e testou o material</h2>
+            <div className="reviews-grid">
+              <figure className="review-card">
+                <blockquote>
+                  Amei o guia! É muito prático e fácil de entender. Facilitou
+                  minha vida!
+                </blockquote>
+                <figcaption>Pessoa convidada a testar o e-book</figcaption>
+              </figure>
+              <figure className="review-card">
+                <blockquote>
+                  O professor me recomendou, e eu achei muito bom. É só um PDF,
+                  mas acho que é o PDF mais útil que já usei. Nunca vi um conteúdo
+                  parecido na internet.
+                </blockquote>
+                <figcaption>Pessoa convidada a testar o e-book</figcaption>
               </figure>
             </div>
           </div>

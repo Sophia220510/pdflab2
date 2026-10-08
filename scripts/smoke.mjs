@@ -76,14 +76,22 @@ try {
         throw new Error("As três amostras distintas estão ausentes");
       if (!(await page.locator(".brand-lockup strong").isVisible()))
         throw new Error("Nome do laboratório oculto no celular");
+      const quickDemo = page.locator(".hero-quick-demo");
+      if (!(await quickDemo.isVisible()))
+        throw new Error("Demonstração curta ausente da primeira tela do celular");
+      const quickDemoBox = await quickDemo.boundingBox();
+      if (!quickDemoBox || quickDemoBox.y + quickDemoBox.height > 844)
+        throw new Error("Demonstração curta fora da primeira tela do celular");
       if ((await page.locator(".review-card").count()) !== 2)
-        throw new Error("Depoimentos de leitores convidados ausentes");
+        throw new Error("Depoimentos ausentes");
       if ((await page.locator('a[href="mailto:laboratoriosantahelena81@gmail.com"]').count()) !== 2)
         throw new Error("E-mail de suporte ausente do FAQ ou rodapé");
       const cta = page.locator(".hero .buy-button");
       const box = await cta.boundingBox();
       if (!box || box.y + box.height > 844)
         throw new Error("CTA do hero fora da primeira tela em 390px");
+      if (quickDemoBox.y + quickDemoBox.height > box.y)
+        throw new Error("Demonstração curta precisa vir antes do CTA no celular");
       const href = await cta.getAttribute("href");
       if (!href) throw new Error("Checkout de teste ausente");
       const url = new URL(href);
@@ -95,6 +103,13 @@ try {
       )
         throw new Error(`UTMs incorretas: ${href}`);
       await page.screenshot({ path: ".work/validated-mobile.png" });
+      await quickDemo.getByRole("button", { name: "Abrir a página real" }).click();
+      const earlyDialog = page.getByRole("dialog");
+      await earlyDialog.waitFor();
+      if (!(await earlyDialog.locator("img").getAttribute("src"))?.endsWith("percentual-absoluto.webp"))
+        throw new Error("Demonstração curta não abre a página real");
+      await page.keyboard.press("Escape");
+      await earlyDialog.waitFor({ state: "detached" });
       await page.getByRole("link", { name: "Ver páginas do e-book" }).click();
       await page.waitForFunction(() =>
         location.hash === "#previews" && document.querySelector("#previews").getBoundingClientRect().top < innerHeight / 2,

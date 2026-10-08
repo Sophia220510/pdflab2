@@ -270,22 +270,36 @@ export function App() {
             <p className="eyebrow">
               Para estudantes de Biomedicina, Farmácia e Análises Clínicas
             </p>
-            <h1 id="hero-title">Chega de travar no hemograma.</h1>
+            <h1 id="hero-title">Decorar siglas não basta para entender o hemograma.</h1>
             <p className="hero-product">Hemograma Descomplicado</p>
             <p className="hero-subtitle">
-              Aprenda a relacionar os dados do hemograma de adultos e organizar
-              seu raciocínio nos exercícios. Estude com explicações ilustradas,
-              acompanhe exemplos resolvidos e confira cada etapa nas respostas comentadas.
+              Veja por que 60% de linfócitos pode representar menos células que
+              30%. O e-book mostra como relacionar os dados e conferir seu
+              raciocínio nos exercícios.
             </p>
-            <div className="hero-badges">
-              <span>PDF digital · 53 páginas</span>
-              <span>Explicações ilustradas · exemplos resolvidos</span>
+            <div className="hero-quick-demo">
+              <span className="quick-demo-kicker">Exemplo da página 28</span>
+              <div className="quick-demo-calcs">
+                <span><strong>60%</strong> de 3.000 <b>= 1.800 linfócitos/µL</b></span>
+                <span><strong>30%</strong> de 12.000 <b>= 3.600 linfócitos/µL</b></span>
+              </div>
+              <p>O total de leucócitos muda a comparação.</p>
+              <button type="button" onClick={(event) => openPreview(comparisonPreview, event.currentTarget)}>
+                Abrir a página real <span aria-hidden="true">↗</span>
+              </button>
             </div>
             <div className="hero-purchase">
               <p className="price">
                 <strong>{site.price}</strong> <span>pagamento único</span>
               </p>
               <BuyButton position="hero" />
+              <p className="microcopy">
+                PDF em português · acesso após aprovação · garantia de 7 dias
+              </p>
+              <div className="hero-badges">
+                <span>53 páginas ilustradas</span>
+                <span>Exemplos resolvidos e exercícios comentados</span>
+              </div>
               <p className="hero-callout">
                 Compre agora e aprenda a evitar erros na leitura do hemograma.
               </p>
@@ -294,9 +308,6 @@ export function App() {
                 <li>Distinga porcentagens de contagens absolutas de leucócitos.</li>
                 <li>Organize uma síntese de estudo com a ficha de leitura.</li>
               </ul>
-              <p className="microcopy">
-                Acesso após a aprovação do pagamento · garantia de 7 dias
-              </p>
               <a className="preview-jump" href="#previews">
                 Ver páginas do e-book
               </a>

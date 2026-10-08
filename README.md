@@ -4,6 +4,8 @@ Landing page em React, TypeScript e Vite para o e-book **Hemograma Descomplicado
 
 A apresentação adapta ao hemograma o sistema visual da página [Primeiro Estágio](https://primeiroestagio.vercel.app/): **Fraunces** nos títulos, **DM Sans** nos textos, branco `#fff`, bege `#f7f4f0`, vinho `#2c151a` e vermelho `#b32639`. As amostras reais mostram três tarefas distintas: calcular índices das hemácias, comparar percentual e contagem absoluta de leucócitos e organizar uma ficha de leitura. O desafio 09 demonstra a leitura das plaquetas. O checkout do hemograma e o Meta Pixel `2202477087281618` foram preservados.
 
+No celular, a primeira tela retoma o gancho sobre decorar siglas e mostra a conta da página 28 antes do preço e do CTA. O botão da demonstração abre a página original do PDF; a grade completa de amostras continua logo depois da apresentação.
+
 Os dois depoimentos exibidos foram fornecidos pelo responsável como relatos de pessoas convidadas a testar o e-book. A pontuação, a ortografia e a concordância foram corrigidas sem acrescentar resultados, nomes ou credenciais. As identificações permanecem anônimas até que cada pessoa autorize uma forma de apresentação.
 
 ## Executar

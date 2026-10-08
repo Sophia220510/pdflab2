@@ -553,7 +553,7 @@ export function App() {
 
         <section className="reviews section-pad" aria-labelledby="reviews-title">
           <div className="shell">
-            <p className="section-kicker">Opiniões de leitores convidados</p>
+            <p className="section-kicker">Opiniões de leitores</p>
             <h2 id="reviews-title">Relatos de quem leu e testou o material</h2>
             <div className="reviews-grid">
               <figure className="review-card">
@@ -561,7 +561,7 @@ export function App() {
                   Amei o guia! É muito prático e fácil de entender. Facilitou
                   minha vida!
                 </blockquote>
-                <figcaption>Pessoa convidada a testar o e-book</figcaption>
+                <figcaption>Leitor(a) do e-book</figcaption>
               </figure>
               <figure className="review-card">
                 <blockquote>
@@ -569,7 +569,7 @@ export function App() {
                   mas acho que é o PDF mais útil que já usei. Nunca vi um conteúdo
                   parecido na internet.
                 </blockquote>
-                <figcaption>Pessoa convidada a testar o e-book</figcaption>
+                <figcaption>Leitor(a) do e-book</figcaption>
               </figure>
             </div>
           </div>

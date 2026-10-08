@@ -561,7 +561,7 @@ export function App() {
                   Amei o guia! É muito prático e fácil de entender. Facilitou
                   minha vida!
                 </blockquote>
-                <figcaption>Leitor(a) do e-book</figcaption>
+                <figcaption>Comprador</figcaption>
               </figure>
               <figure className="review-card">
                 <blockquote>
@@ -569,7 +569,7 @@ export function App() {
                   mas acho que é o PDF mais útil que já usei. Nunca vi um conteúdo
                   parecido na internet.
                 </blockquote>
-                <figcaption>Leitor(a) do e-book</figcaption>
+                <figcaption>Comprador</figcaption>
               </figure>
             </div>
           </div>
